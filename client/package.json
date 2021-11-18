@@ -1,6 +1,6 @@
 {
   "name": "mern-client",
-  "homepage": "https://gentle-headland-23590.herokuapp.com/",
+  "homepage": "https://stormy-falls-11237.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001/",
