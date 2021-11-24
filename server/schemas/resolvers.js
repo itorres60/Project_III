@@ -4,6 +4,7 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
+    // returns information about current user
     me: async (parent, args, context) => {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
@@ -14,13 +15,25 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+    // returns information about all users
     users: async () => {
       return User.find()
         .select('-__v -password')
     },
+    // returns information about a single user based on email
     user: async (parent, { email }) => {
       return User.findOne({ email })
         .select('-__v -password')
+    },
+    // returns information about all calendars
+    calendars: async () => {
+      return Calendar.find()
+        .select('-__v')
+    },
+    // returns information about a single calendar based on _id
+    calendar: async (parent, { calendarId }) => {
+      return Calendar.findOne({ _id: calendarId })
+        .select('-__v')
     }
   },
 

@@ -26,6 +26,8 @@ const typeDefs = gql`
     me: User
     users: [User]
     user(email: String!): User
+    calendars: [Calendar]
+    calendar(calendarId: ID!): Calendar
   }
 
   type Mutation {
