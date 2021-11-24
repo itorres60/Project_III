@@ -6,9 +6,11 @@ import Auth from '../utils/auth';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
-    username: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
+    role: ''
   });
   const [addUser, { error }] = useMutation(ADD_USER);
 
@@ -30,7 +32,8 @@ const Signup = () => {
       const { data } = await addUser({
         variables: { ...formState },
       });
-
+      console.log(formState.role);
+      console.log(data.addUser.token);
       Auth.login(data.addUser.token);
     } catch (e) {
       console.error(e);
@@ -46,11 +49,20 @@ const Signup = () => {
             <form onSubmit={handleFormSubmit}>
               <input
                 className="form-input"
-                placeholder="Your username"
-                name="username"
-                type="username"
-                id="username"
-                value={formState.username}
+                placeholder="Your first name"
+                name="firstName"
+                type="firstName"
+                id="firstName"
+                value={formState.firstName}
+                onChange={handleChange}
+              />
+              <input
+                className="form-input"
+                placeholder="Your last name"
+                name="lastName"
+                type="lastName"
+                id="lastName"
+                value={formState.lastName}
                 onChange={handleChange}
               />
               <input
@@ -71,6 +83,13 @@ const Signup = () => {
                 value={formState.password}
                 onChange={handleChange}
               />
+              <label for="role">Choose a role:</label>
+              <select name="role" id="role" onChange={handleChange}>
+                <option value= " ">-- Select a role --</option>
+                <option value="Administrator">Administrator</option>
+                <option value="Relief Worker">Relief Worker</option>
+                <option value="Employee">Employee</option>
+              </select>
               <button className="btn d-block w-100" type="submit">
                 Submit
               </button>

@@ -18,8 +18,8 @@ const resolvers = {
       return User.find()
         .select('-__v -password')
     },
-    user: async (parent, { username }) => {
-      return User.findOne({ username })
+    user: async (parent, { email }) => {
+      return User.findOne({ email })
         .select('-__v -password')
     }
   },

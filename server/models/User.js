@@ -33,22 +33,8 @@ const userSchema = new Schema(
       ref: 'Calendar'
     }],
     reservations: [{
-      start: {
-        type: String,
-        required: true
-      },
-      end: {
-        type: String,
-        required: true
-      },
-      assignedUser: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-      },
-      isAvailable: {
-        type: Boolean,
-        default: false
-      }
+      type: Schema.Types.ObjectId,
+      ref: 'Reservation'
     }]
   },
   {
