@@ -1,4 +1,5 @@
 {
+  "homepage": "https://stormy-falls-11237.herokuapp.com/",
   "name": "mern-project",
   "version": "1.0.0",
   "description": "",
@@ -15,5 +16,8 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "react-burger-menu": "^3.0.6"
   }
 }
