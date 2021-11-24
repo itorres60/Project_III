@@ -47,6 +47,27 @@ const resolvers = {
       // writes a token for login authentication
       const token = signToken(user);
 
+      // find all calendars
+      const calendars = await Calendar.find()
+        .select('-__v');
+
+      // This is O(n^2) - Not Optimal but works for now
+      // loop through calendars with employees
+      await calendars.forEach(async (calendar) => {
+        // loop through calendar employees to check if the created user's email exists
+        await calendar.users.forEach( async (email) => {
+          // if it does exist then add the calendar id to the created user's calendar array
+          if (email === user.email) {
+            // add calendar to created user's calendar array
+            await User.findOneAndUpdate(
+              { email },
+              { $addToSet: { calendars: calendar._id } },
+              { new: true }
+            )
+          }
+        })
+      })
+
       return { token, user };
     },
     // logs in a user
