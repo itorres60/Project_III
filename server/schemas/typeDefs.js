@@ -35,6 +35,7 @@ const typeDefs = gql`
     createUser(firstName: String!, lastName: String!, email: String!, password: String!, role: String!): Auth
     createCalendar(companyName: String!): Calendar
     addUser(calendarId: ID!, email: String!): Calendar
+    removeUser(calendarId: ID!, email: String!): Calendar
   }
 `;
 

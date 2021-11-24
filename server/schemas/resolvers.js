@@ -2,6 +2,8 @@ const { AuthenticationError } = require('apollo-server-express');
 const { User, Calendar, Reservation } = require('../models');
 const { signToken } = require('../utils/auth');
 
+// I need to figure out a nice way of checking that the user exists when added to a calendar and if they do exist then add them otherwise on signup they will be added
+
 const resolvers = {
   Query: {
     // returns information about current user
@@ -79,8 +81,8 @@ const resolvers = {
 
         // adds calendar id to user's calendar array
         await User.findOneAndUpdate(
-          { _id: context.user._id }, 
-          { $push: { calendars: calendar._id } },
+          { _id: context.user._id },
+          { $addToSet: { calendars: calendar._id } },
           { new: true }
         )
 
@@ -99,6 +101,36 @@ const resolvers = {
         const calendarUpdate = await Calendar.findOneAndUpdate(
           { _id: calendarId },
           { $addToSet: { users: email } },
+          { new: true }
+        );
+
+        // adds calendar id to user's calendar array
+        await User.findOneAndUpdate(
+          { email },
+          { $addToSet: { calendars: calendar._id } },
+          { new: true }
+        );
+
+        return calendarUpdate;
+      }
+
+      throw new AuthenticationError('Not Admin of Calendar.');
+    },
+    removeUser: async (parent, { calendarId, email }, context) => {
+      // finds a calendar with the given calendarId
+      const calendar = await Calendar.findOne({ _id: calendarId });
+      // checks if the user's id equals the calendar's admin's id
+      if (context.user._id == calendar.admin) {
+        // updates the calendar's user array with the email provided
+        const calendarUpdate = await Calendar.findOneAndUpdate(
+          { _id: calendarId },
+          { $pull: { users: email } },
+          { new: true }
+        );
+
+        await User.findOneAndUpdate(
+          { email },
+          { $pull: { calendars: calendar._id } },
           { new: true }
         );
 
