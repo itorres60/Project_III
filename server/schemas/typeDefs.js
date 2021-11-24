@@ -1,11 +1,19 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  type Calendar {
+    _id: ID
+    companyName: String
+    users: [String]
+    admin: User
+  }
+
   type User {
     _id: ID
     firstName: String
     lastName: String
     email: String
+    calendars: [Calendar]
     role: String
   }
 
@@ -22,7 +30,9 @@ const typeDefs = gql`
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!, role: String!): Auth
+    createUser(firstName: String!, lastName: String!, email: String!, password: String!, role: String!): Auth
+    createCalendar(companyName: String!): Calendar
+    addUser(calendarId: ID!, email: String!): Calendar
   }
 `;
 
