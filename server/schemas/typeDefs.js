@@ -8,12 +8,22 @@ const typeDefs = gql`
     admin: User
   }
 
+  type Reservation {
+    _id: ID
+    title: String
+    start: String
+    end: String
+    assigneedUser: User
+    isAvailable: Boolean
+  }
+
   type User {
     _id: ID
     firstName: String
     lastName: String
     email: String
     calendars: [Calendar]
+    reservations: [Reservation]
     role: String
   }
 
@@ -28,6 +38,8 @@ const typeDefs = gql`
     user(email: String!): User
     calendars: [Calendar]
     calendar(calendarId: ID!): Calendar
+    reservations: [Reservation]
+    reservation(reservationId: ID!): Reservation
   }
 
   type Mutation {

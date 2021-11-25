@@ -36,6 +36,16 @@ const resolvers = {
     calendar: async (parent, { calendarId }) => {
       return Calendar.findOne({ _id: calendarId })
         .select('-__v')
+    },
+    // returns information about all reservations
+    calendars: async () => {
+      return Reservation.find()
+        .select('-__v')
+    },
+    // returns information about a single reservation based on _id
+    reservation: async (parent, { reservationId }) => {
+      return Reservation.findOne({ _id: reservationId })
+        .select('-__v')
     }
   },
 
@@ -55,7 +65,7 @@ const resolvers = {
       // loop through calendars with employees
       await calendars.forEach(async (calendar) => {
         // loop through calendar employees to check if the created user's email exists
-        await calendar.users.forEach( async (email) => {
+        await calendar.users.forEach(async (email) => {
           // if it does exist then add the calendar id to the created user's calendar array
           if (email === user.email) {
             // add calendar to created user's calendar array

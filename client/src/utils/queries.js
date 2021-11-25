@@ -61,3 +61,33 @@ export const QUERY_CALENDAR = gql`
     }
   }
 `;
+
+export const QUERY_CALENDARS = gql`
+    query reservations {
+      reservations {
+        _id
+        title
+        start
+        end
+        assignedUser {
+          _id
+        }
+        isAvailable
+      }
+    }
+`;
+
+export const QUERY_CALENDAR = gql`
+  query reservation($reservationId: ID!) {
+    calendar(reservationId: $reservationId) {
+      _id
+      title
+      start
+      end
+      assignedUser {
+        _id
+      }
+      isAvailable
+    }
+  }
+`;
