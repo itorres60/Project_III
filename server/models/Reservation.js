@@ -2,6 +2,9 @@ const { Schema, model } = require('mongoose');
 
 const reservationSchema = new Schema(
     {
+        title: {
+            type: String
+        },
         start: {
             type: String
         },
