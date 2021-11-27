@@ -1,7 +1,7 @@
 :root {
-  --primary: #497573;
-  --secondary: #2E7F28;
-  --tertiary: #b2c2c1;
+  --primary: #111;
+  --secondary: #9C27B0;
+  --tertiary: #333;
   --quatrinary: #cadbda;
   --light: #e1f5f4;
   --dark: #0e270c;
@@ -31,7 +31,7 @@ body {
   line-height: 1.5;
   font-size: 20px;
   color: var(--dark);
-  background-color: #f3fffee1;
+  background-color: #111;
 }
 
 h1,
@@ -97,7 +97,8 @@ nav a {
 
 nav a:hover {
   color: var(--secondary);
-  background-color: var(--dark);
+  background-color: var(--primary);
+  border-radius: 5px;
 }
 
 .page-title {
@@ -791,6 +792,8 @@ nav a:hover {
 
 .bg-tertiary {
   background-color: var(--tertiary);
+  color: #fff;
+  border-radius: 0 0 25px 25px
 }
 
 .bg-light {

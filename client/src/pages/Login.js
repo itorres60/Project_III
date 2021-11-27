@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
-
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
 import Auth from '../utils/auth';
+
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -40,38 +44,50 @@ const Login = (props) => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-md-6">
-        <div className="card">
-          <h4 className="card-header">Login</h4>
-          <div className="card-body">
+    <main className="flex-row justify-center" style={{ marginTop: '5rem' }}>
+      <div className="col-md-5">
+
+        <Card sx={{ minWidth: 275 }} style={{ backgroundColor: '#333' }}>
+          <div className="flex-row justify-center mb-4">
+            <h2 style={{ color: '#fff' }}>Welcome Back!</h2>
+          </div>
+          <CardContent className="flex-row justify-center mb-4">
             <form onSubmit={handleFormSubmit}>
+              <label id="email" style={{ color: '#fff' }}>Email: </label>
               <input
-                className="form-input"
-                placeholder="Your email"
                 name="email"
                 type="email"
-                id="email"
-                value={formState.email}
-                onChange={handleChange}
-              />
+                for="email"
+                value={setFormState.email}
+                placeholder="example@mail.com"
+                style={{ marginLeft: '2rem' }}
+                onChange={handleChange}>
+              </input>
+              <br />
+              <br />
+              <label id="password" style={{ color: '#fff' }}>Password: </label>
               <input
-                className="form-input"
-                placeholder="******"
                 name="password"
                 type="password"
-                id="password"
-                value={formState.password}
-                onChange={handleChange}
-              />
-              <button className="btn d-block w-100" type="submit">
-                Submit
-              </button>
+                for="password"
+                value={setFormState.password}
+                placeholder="••••••••••"
+                onChange={handleChange}>
+              </input>
             </form>
-
-            {error && <div>Login failed</div>}
+          </CardContent>
+          <CardActions className="flex-row justify-center">
+            <Button size="large" variant="contained" style={{ backgroundColor: '#9C27B0' }} onClick={login}>Login</Button>
+          </CardActions>
+          <div className="flex-row justify-center mb-4">
+            <p style={{ color: '#fff' }}>Don't have an account? 
+            <br />
+              <div className="flex-row justify-center">
+                <a style={{ color: '#29b6f6' }} href="/signup">Signup</a>
+              </div>
+            </p>
           </div>
-        </div>
+        </Card>
       </div>
     </main>
   );
