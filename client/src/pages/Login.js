@@ -58,7 +58,7 @@ const Login = (props) => {
                 name="email"
                 type="email"
                 for="email"
-                value={setFormState.email}
+                value={formState.email}
                 placeholder="example@mail.com"
                 style={{ marginLeft: '2rem' }}
                 onChange={handleChange}>
@@ -70,21 +70,22 @@ const Login = (props) => {
                 name="password"
                 type="password"
                 for="password"
-                value={setFormState.password}
+                value={formState.password}
                 placeholder="••••••••••"
                 onChange={handleChange}>
               </input>
+              <CardActions className="flex-row justify-center">
+            <Button type="submit" size="large" variant="contained" style={{ backgroundColor: '#9C27B0' }}>Login</Button>
+          </CardActions>
             </form>
           </CardContent>
-          <CardActions className="flex-row justify-center">
-            <Button size="large" variant="contained" style={{ backgroundColor: '#9C27B0' }} onClick={login}>Login</Button>
-          </CardActions>
+          
           <div className="flex-row justify-center mb-4">
             <p style={{ color: '#fff' }}>Don't have an account? 
             <br />
-              <div className="flex-row justify-center">
+              
                 <a style={{ color: '#29b6f6' }} href="/signup">Signup</a>
-              </div>
+              
             </p>
           </div>
         </Card>

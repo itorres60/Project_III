@@ -14,7 +14,11 @@ import FormLabel from '@mui/material/FormLabel';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
-    
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      role: ''
   });
   const [createUser, { error }] = useMutation(CREATE_USER);
 
@@ -106,6 +110,7 @@ const Signup = () => {
                   <FormLabel component="legend" color="secondary">Choose a role:</FormLabel>
                   <RadioGroup
                     aria-label="role"
+                    id="role"
                     name="role"
                     onChange={handleChange}
                   >
