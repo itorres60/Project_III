@@ -28,12 +28,17 @@ export const QUERY_USERS = gql`
 
 export const QUERY_ME = gql`
     query me {
-      _id
-      firstName
-      lastName
-      email
-      role
-    }
+      me {
+        _id
+        firstName
+        lastName
+        email
+        calendars {
+          _id
+        }
+        role
+      }
+  }
 `;
 
 export const QUERY_CALENDARS = gql`
@@ -62,7 +67,7 @@ export const QUERY_CALENDAR = gql`
   }
 `;
 
-export const QUERY_CALENDARS = gql`
+export const QUERY_RESERVATIONS = gql`
     query reservations {
       reservations {
         _id
@@ -77,7 +82,7 @@ export const QUERY_CALENDARS = gql`
     }
 `;
 
-export const QUERY_CALENDAR = gql`
+export const QUERY_RESSERVATION = gql`
   query reservation($reservationId: ID!) {
     calendar(reservationId: $reservationId) {
       _id
