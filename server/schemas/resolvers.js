@@ -169,7 +169,54 @@ const resolvers = {
       }
 
       throw new AuthenticationError('Not Admin of Calendar.');
-    }
+    },
+    removeCalender: async (parent, { companyName }, context) => {
+      if (context.user) {
+        const calendar = await Calendar.findByIdAndRemove({
+          companyName,
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { calendars: calendar._id } },
+          { new: true }
+        )
+      }
+      throw new AuthenticationError('Not Admin of Calendar.');
+    },
+
+    addReservation: async (parent,  { title, start, end, assigneedUser, isAvailable} , context) => {
+      if (context.user) {
+        const reservation = await Reservation.create({
+          title, 
+          start,
+          end,
+          assigneedUser,
+          isAvailable
+        });
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { reservations: reservation._id } },
+          { new: true }
+        )
+
+        return reservation;
+      }
+    },
+    removeReservation: async (parent, { title }, context) => {
+      if (context.user) {
+        const reservation = await Reservation.findByIdAndRemove({
+          title,
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { reservations: reservation._id } },
+          { new: true }
+        )
+      }
+      throw new AuthenticationError('Not Admin of Calendar.');
+    },
   }
 };
 
