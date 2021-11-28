@@ -38,7 +38,7 @@ const resolvers = {
         .select('-__v')
     },
     // returns information about all reservations
-    calendars: async () => {
+    reservations: async () => {
       return Reservation.find()
         .select('-__v')
     },
@@ -169,6 +169,82 @@ const resolvers = {
       }
 
       throw new AuthenticationError('Not Admin of Calendar.');
+    },
+    // removes a calendar and all information from the calendar
+    removeCalendar: async (parent, { calendarId }, context) => {
+      if (context.user) {
+        const calendar = await Calendar.findOneAndDelete({ _id: calendarId });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { calendars: calendar._id } },
+          { new: true }
+        )
+
+        return calendar;
+      }
+      throw new AuthenticationError('Not Admin of Calendar.');
+    },
+    // adds a requested reservation to a calendar
+    createReservation: async (parent, { title, start, end, calendarId }, context) => {
+      if (context.user) {
+        const reservation = await Reservation.create({
+          title,
+          start,
+          end,
+          requestedUser: context.user._id
+        });
+
+        await Calendar.findOneAndUpdate(
+          { _id: calendarId },
+          { $addToSet: { reservations: reservation._id } },
+          { new: true }
+        )
+
+        return reservation;
+      }
+    },
+    // removes a requested reservation from a calendar
+    removeReservation: async (parent, { reservationId, calendarId }, context) => {
+      if (context.user) {
+        const reservation = await Reservation.findOneAndDelete({ _id: reservationId });
+
+        await Calendar.findOneAndUpdate(
+          { _id: calendarId },
+          { $pull: { reservations: reservation._id } },
+          { new: true }
+        )
+
+        return reservation;
+      }
+      throw new AuthenticationError('Not Your Reservation.');
+    },
+    // assigns a relief operator to a reservation
+    acceptReservation: async (parent, { reservationId }, context) => {
+      if(context.user) {
+        const reservation = await Reservation.findOneAndUpdate(
+          { _id: reservationId },
+          { assignedUser: context.user._id },
+          { new: true }
+          );
+
+        return reservation;
+      }
+
+      throw new AuthenticationError('Not Your Reservation.');
+    },
+    removeReservationAccept: async (parent, { reservationId }, context) => {
+      if(context.user) {
+        const reservation = await Reservation.findOneAndUpdate(
+          { _id: reservationId },
+          { assignedUser: null },
+          { new: true }
+          );
+
+        return reservation;
+      }
+
+      throw new AuthenticationError('Not Your Reservation.');
     }
   }
 };

@@ -57,3 +57,33 @@ export const CREATE_CALENDAR = gql`
   }
 `;
 
+export const REMOVE_CALENDER = gql`
+  mutation removeCalenderMutation($companyName: String!){
+    removeCalender(companyName: $companyName) {
+      _id
+    }
+  }
+`;
+
+export const ADD_RESERVATION = gql`
+  mutation addReservationMutation($title: String!, $start: String!, $end: String!, $assigneedUser: User!, $isAvailable: Boolean!){
+    addReservation( title: $title,  start: $start, end: $end, assigneedUser: $User, isAvailable: $isAvailable){
+      Reservation {
+        _id
+        title
+        start
+        end
+        assigneedUser
+        isAvailable
+      }
+    }
+  }
+`;
+
+export const REMOVE_RESERVATION = gql`
+mutation removeReservationMutation($title: String!){
+  removeReservation(title: $title) {
+    _id
+  }
+}
+`;

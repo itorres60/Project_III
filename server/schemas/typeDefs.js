@@ -5,6 +5,7 @@ const typeDefs = gql`
     _id: ID
     companyName: String
     users: [String]
+    reservations: [Reservation]
     admin: User
   }
 
@@ -13,7 +14,8 @@ const typeDefs = gql`
     title: String
     start: String
     end: String
-    assigneedUser: User
+    requestedUser: User
+    assignedUser: User
     isAvailable: Boolean
   }
 
@@ -23,7 +25,6 @@ const typeDefs = gql`
     lastName: String
     email: String
     calendars: [Calendar]
-    reservations: [Reservation]
     role: String
   }
 
@@ -46,8 +47,13 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     createUser(firstName: String!, lastName: String!, email: String!, password: String!, role: String!): Auth
     createCalendar(companyName: String!): Calendar
+    removeCalendar(calendarId: ID!): Calendar
     addUser(calendarId: ID!, email: String!): Calendar
     removeUser(calendarId: ID!, email: String!): Calendar
+    createReservation(title: String!,  start: String!, end: String, calendarId: ID!): Reservation
+    removeReservation(reservationId: ID!, calendarId: ID!): Reservation 
+    acceptReservation(reservationId: ID!): Reservation
+    removeReservationAccept(reservationId: ID!): Reservation
   }
 `;
 
