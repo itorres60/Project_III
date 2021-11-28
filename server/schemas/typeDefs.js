@@ -15,7 +15,7 @@ const typeDefs = gql`
     start: String
     end: String
     requestedUser: User
-    assigneedUser: User
+    assignedUser: User
     isAvailable: Boolean
   }
 
@@ -52,6 +52,8 @@ const typeDefs = gql`
     removeUser(calendarId: ID!, email: String!): Calendar
     createReservation(title: String!,  start: String!, end: String, calendarId: ID!): Reservation
     removeReservation(reservationId: ID!, calendarId: ID!): Reservation 
+    acceptReservation(reservationId: ID!): Reservation
+    removeReservationAccept(reservationId: ID!): Reservation
   }
 `;
 

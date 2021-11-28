@@ -219,6 +219,33 @@ const resolvers = {
       }
       throw new AuthenticationError('Not Your Reservation.');
     },
+    // assigns a relief operator to a reservation
+    acceptReservation: async (parent, { reservationId }, context) => {
+      if(context.user) {
+        const reservation = await Reservation.findOneAndUpdate(
+          { _id: reservationId },
+          { assignedUser: context.user._id },
+          { new: true }
+          );
+
+        return reservation;
+      }
+
+      throw new AuthenticationError('Not Your Reservation.');
+    },
+    removeReservationAccept: async (parent, { reservationId }, context) => {
+      if(context.user) {
+        const reservation = await Reservation.findOneAndUpdate(
+          { _id: reservationId },
+          { assignedUser: null },
+          { new: true }
+          );
+
+        return reservation;
+      }
+
+      throw new AuthenticationError('Not Your Reservation.');
+    }
   }
 };
 
