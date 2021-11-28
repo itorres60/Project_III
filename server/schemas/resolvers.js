@@ -38,7 +38,7 @@ const resolvers = {
         .select('-__v')
     },
     // returns information about all reservations
-    calendars: async () => {
+    reservations: async () => {
       return Reservation.find()
         .select('-__v')
     },
@@ -170,30 +170,26 @@ const resolvers = {
 
       throw new AuthenticationError('Not Admin of Calendar.');
     },
-    removeCalender: async (parent, { companyName }, context) => {
+    // removes a calendar and all information from the calendar
+    removeCalender: async (parent, { calendarId }, context) => {
       if (context.user) {
-        const calendar = await Calendar.findByIdAndRemove({
-          companyName,
-        });
+        const calendar = await Calendar.findOneAndDelete({ _id: calendarId });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { calendars: calendar._id } },
           { new: true }
         )
+
+        return calendar;
       }
       throw new AuthenticationError('Not Admin of Calendar.');
     },
-
-    addReservation: async (parent,  { title, start, end, assigneedUser, isAvailable} , context) => {
+    // adds a requested reservation to a calendar
+    addReservation: async (parent, args, context) => {
       if (context.user) {
-        const reservation = await Reservation.create({
-          title, 
-          start,
-          end,
-          assigneedUser,
-          isAvailable
-        });
+        const reservation = await Reservation.create(args);
+
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { reservations: reservation._id } },
@@ -203,19 +199,20 @@ const resolvers = {
         return reservation;
       }
     },
-    removeReservation: async (parent, { title }, context) => {
+    // removes a requested reservation from a calendar
+    removeReservation: async (parent, { reservationId }, context) => {
       if (context.user) {
-        const reservation = await Reservation.findByIdAndRemove({
-          title,
-        });
+        const reservation = await Reservation.findByOneAndDelete({ _id: reservationId });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { reservations: reservation._id } },
           { new: true }
         )
+
+        return reservation;
       }
-      throw new AuthenticationError('Not Admin of Calendar.');
+      throw new AuthenticationError('Not Your Reservation.');
     },
   }
 };

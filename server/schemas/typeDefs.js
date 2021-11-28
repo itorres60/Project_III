@@ -46,11 +46,11 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     createUser(firstName: String!, lastName: String!, email: String!, password: String!, role: String!): Auth
     createCalendar(companyName: String!): Calendar
+    removeCalender(calendarId: ID!): Calender
     addUser(calendarId: ID!, email: String!): Calendar
     removeUser(calendarId: ID!, email: String!): Calendar
-    removeCalender(companyName: String!): Calender
-    addReservation( title: String!,  start: String!, end: String!, assigneedUser: User!, isAvailable: Boolean!): Reservation
-    removeReservation(title: String!): Reservation
+    addReservation( title: String!,  start: String!, end: String!, assigneedUser: User!): Reservation
+    removeReservation(reservationId: ID!): Reservation
   }
 `;
 
