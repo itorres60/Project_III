@@ -11,6 +11,10 @@ const reservationSchema = new Schema(
         end: {
             type: String
         },
+        requestedUser: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        },
         assignedUser: {
             type: Schema.Types.ObjectId,
             ref: 'User'

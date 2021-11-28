@@ -56,4 +56,3 @@ export const CREATE_CALENDAR = gql`
     }
   }
 `;
-

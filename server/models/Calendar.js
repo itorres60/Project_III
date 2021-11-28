@@ -11,6 +11,10 @@ const calendarSchema = new Schema(
       type: String,
       trim: true
     }],
+    reservations: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Reservation'
+    }],
     admin: {
       type: Schema.Types.ObjectId,
       ref: 'User'
