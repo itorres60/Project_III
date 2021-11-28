@@ -65,25 +65,48 @@ export const REMOVE_CALENDER = gql`
   }
 `;
 
-export const ADD_RESERVATION = gql`
-  mutation addReservationMutation($title: String!, $start: String!, $end: String!, $assigneedUser: User!, $isAvailable: Boolean!){
-    addReservation( title: $title,  start: $start, end: $end, assigneedUser: $User, isAvailable: $isAvailable){
-      Reservation {
-        _id
-        title
-        start
-        end
-        assigneedUser
-        isAvailable
-      }
+export const CREATE_RESERVATION = gql`
+  mutation createReservationMutation($title: String!, $start: String!, $end: String, $calendarId: ID!) {
+    createReservation(title: $title, start: $start, end: $end, calendarId: $calendarId) {
+      _id
+      title
+      start
+      end
     }
   }
 `;
 
 export const REMOVE_RESERVATION = gql`
-mutation removeReservationMutation($title: String!){
-  removeReservation(title: $title) {
-    _id
+  mutation removeReservationMutation($reservationId: ID!, $calendarId:ID!) {
+    removeReservation(reservationId: $reservationId, calendarId: $calendarId) {
+      _id
+      title
+      start
+      end
+    }
   }
-}
+`;
+
+export const ACCEPT_RESERVATION = gql`
+  mutation acceptReservationMutation($reservationId: ID!) {
+    acceptReservation(reservationId: $reservationId) {
+      _id
+      title
+      assignedUser {
+        _id
+      }
+    }
+  }
+`;
+
+export const REMOVE_ACCEPTED_RESERVATION = gql`
+  mutation acceptReservationMutation($reservationId: ID!) {
+    removeReservationAccept(reservationId: $reservationId) {
+      _id
+      title
+      assignedUser {
+        _id
+      }
+    }
+  }
 `;
