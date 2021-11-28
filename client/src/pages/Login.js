@@ -83,9 +83,9 @@ const Login = (props) => {
           <div className="flex-row justify-center mb-4">
             <p style={{ color: '#fff' }}>Don't have an account? 
             <br />
-              
+              <div className='flex-row justify-center'>
                 <a style={{ color: '#29b6f6' }} href="/signup">Signup</a>
-              
+              </div>
             </p>
           </div>
         </Card>

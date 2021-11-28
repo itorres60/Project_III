@@ -57,8 +57,8 @@ export const CREATE_CALENDAR = gql`
   }
 `;
 
-export const REMOVE_CALENDER = gql`
-  mutation removeCalenderMutation($companyName: String!){
+export const REMOVE_CALENDAR = gql`
+  mutation removeCalendarMutation($companyName: String!){
     removeCalender(companyName: $companyName) {
       _id
     }
