@@ -95,7 +95,7 @@ const Signup = () => {
               <label id="password">Password: </label>
               <br />
               <input
-                placeholder="******"
+                placeholder="••••••••••"
                 name="password"
                 type="password"
                 for="password"
@@ -130,9 +130,9 @@ const Signup = () => {
             <div className="flex-row justify-center mb-4">
               <p style={{ color: '#fff' }}>Already have an account?
                 <br />
-                
+                <div className='flex-row justify-center'>
                   <a style={{ color: '#29b6f6' }} href="/login">Login</a>
-                
+                </div>
               </p>
             </div>
             {error && <div style={{ color: '#fff' }}>Signup failed</div>}
