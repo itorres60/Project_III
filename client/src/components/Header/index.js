@@ -36,9 +36,6 @@ const Header = () => {
             <>
               <Link to="/login">Login</Link>
               <Link to="/signup">Signup</Link>
-              <a href="/" onClick={logout}>
-                Logout
-              </a>
             </>
           )}
         </nav>
