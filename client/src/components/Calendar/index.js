@@ -1,40 +1,40 @@
-import React from 'react'
+import React, {useState}from 'react'
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import styles from "./calender_styles.css"
+import Modal from 'react-bootstrap/Modal'
 
 let eventsAr = [
     {
-      title: 'test event',
+      title: 'Cover Dewayne',
       start: '2021-11-01',
+      end: '2021-11-04',
       color: 'red'
     },
     {
-      title: 'test event 2',
-      start: '2021-11-01',
-      end: '2021-11-05'
+      title: 'Js Request',
+      start: '2021-11-07',
+      end: '2021-11-15'
     },
-    {
-      title: 'test event 3',
-      start: '2021-11-01',
-      end: '2021-11-05'
-    }
 ]
 
 const handleDateClick = (arg) => {
-  console.log("hello")
+  if (window.confirm("Do you want to remove this event?")) {
+    arg.event.remove();
+  }
 }
 
 const Calendar = () => {
   return (
-    <FullCalendar
+    
+    <FullCalendar styles={styles}
       plugins={[ dayGridPlugin ]}
       initialView="dayGridMonth"
-      weekends={false}
+      weekends={true}
       events={eventsAr}
-      eventClick={function(info) {
-        console.log(info.event.remove())
-      }}
+      eventClick={handleDateClick}
     />
+    
   )
 }
 
