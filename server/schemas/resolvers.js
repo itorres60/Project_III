@@ -227,7 +227,9 @@ const resolvers = {
       if(context.user) {
         const reservation = await Reservation.findOneAndUpdate(
           { _id: reservationId },
-          { assignedUser: context.user._id },
+          { assignedUser: context.user._id,
+            isAvailable: true
+          },
           { new: true }
           );
 
@@ -240,7 +242,9 @@ const resolvers = {
       if(context.user) {
         const reservation = await Reservation.findOneAndUpdate(
           { _id: reservationId },
-          { assignedUser: null },
+          { assignedUser: null,
+            isAvailable: false
+          },
           { new: true }
           );
 

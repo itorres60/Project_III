@@ -92,6 +92,7 @@ export const ACCEPT_RESERVATION = gql`
     acceptReservation(reservationId: $reservationId) {
       _id
       title
+      isAvailable
       assignedUser {
         _id
       }

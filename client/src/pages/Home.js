@@ -26,7 +26,7 @@ const Home = () => {
     const { name, value } = event.target;
 
     setUserFormState({
-      ...formState,
+      ...userFormState,
       [name]: value,
     });
   };
@@ -34,12 +34,12 @@ const Home = () => {
   // submit form
   const handleUserFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState)
+    console.log(userFormState)
 
     try {
       const { data: userData } = await addUser({
         variables: {
-          email: formState.email,
+          email: userFormState.email,
           calendarId: data.me.calendars[0]._id
         },
       });
