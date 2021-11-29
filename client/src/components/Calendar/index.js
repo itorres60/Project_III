@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import styles from "./calender_styles.css"
-import { QUERY_CALENDAR, QUERY_RESERVATIONS } from '../../utils/queries';
+import { QUERY_CALENDAR } from '../../utils/queries';
 import { REMOVE_RESERVATION } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 
