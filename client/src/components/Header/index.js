@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu'
-import styles from './burger_styles.css'
+// import styles from './burger_styles.css'
 
 
 
@@ -14,15 +14,14 @@ const Header = () => {
   };
 
   return (
-    <header styles={styles} className="bg-tertiary mb-4 py-1 flex-row align-center">
+    <header  className="bg-secondary mb-4 py-2 flex-row align-center">
 
-      {/* <Menu>
-      </Menu> */}
 
       <div className="container flex-row justify-space-between-lg justify-center align-center">
         <Link to="/">
           <h1>Relief & Rotation</h1>
         </Link>
+
 
         <nav className="text-center nav-bar">
           {Auth.loggedIn() ? (
