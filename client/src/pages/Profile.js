@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import { CREATE_CALENDAR } from '../utils/mutations';
@@ -46,7 +47,9 @@ const Profile = () => {
   if (error) return `${error.message}`;
   if (calendarError) return `${calendarError.message}`;
 
-  if (currentUserData.me.role === 'administrator') {
+  if (currentUserData.me.calendars.length >= 1) {
+    return (<Redirect to="/" />);
+  } else if (currentUserData.me.role === 'administrator') {
     // needs an input allowing the admin to create a calendar
     return (
       <form id='modalTarget' onSubmit={handleFormSubmit}>
