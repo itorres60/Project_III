@@ -7,13 +7,14 @@ import { REMOVE_RESERVATION } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 
 const Calendar = ({ calendar, userId, userRole }) => {
-  const [removeReservation] = useMutation(REMOVE_RESERVATION);
+  const [removeReservation, { loading: reservationLoading, error: reservationError}] = useMutation(REMOVE_RESERVATION);
   const { loading: calendarLoading, error: calendarError, data: calendarData } = useQuery(QUERY_CALENDAR, {
     variables: { calendarId: calendar._id },
   });
-  console.log(calendarData);
-  if (calendarLoading) return 'Loading...';
+
+  if (calendarLoading || reservationLoading) return 'Loading...';
   if (calendarError) return `${calendarError.message}`;
+  if (reservationError) return `${reservationError.message}`;
 
   const reservations = calendarData.calendar.reservations.map(reservation => {
     return {
