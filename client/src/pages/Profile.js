@@ -1,6 +1,7 @@
-import React from 'react';
-import { useQuery } from '@apollo/client';
+import React, { useState } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
+import { CREATE_CALENDAR } from '../utils/mutations';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -8,35 +9,72 @@ import CardContent from '@mui/material/CardContent';
 
 
 const Profile = () => {
-  const createCalendar = () => {
-    console.log('Creating new calendar...')
-  }
-  const deleteCalendar = () => {
-    console.log('Deleting calendar...')
-  }
-  const { loading, error, data } = useQuery(QUERY_ME);
+  const [formState, setFormState] = useState({
+    companyName: ''
+  });
+  const [createCalendar, { error: calendarError }] = useMutation(CREATE_CALENDAR);
 
-  if(loading) return 'Loading...';
-  if(error) return `${error.message}`;
+  // update state based on form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-  if(data.me.role === 'administrator') {
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  // submit form
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState)
+
+    try {
+      const { data: calendarData } = await createCalendar({
+        variables: { ...formState },
+      });
+
+      console.log(calendarData);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const { loading, error, data: currentUserData } = useQuery(QUERY_ME);
+
+  if (loading) return 'Loading...';
+  if (error) return `${error.message}`;
+  if (calendarError) return `${calendarError.message}`;
+
+  if (currentUserData.me.role === 'administrator') {
     // needs an input allowing the admin to create a calendar
     return (
-      <div id='modalTarget'></div>
+      <form id='modalTarget' onSubmit={handleFormSubmit}>
+        <h2>You do not have any active calendars. Input your company's name to create one:</h2>
+        <input
+          placeholder="Your company's name"
+          name="companyName"
+          type="companyName"
+          for="companyName"
+          value={formState.companyName}
+          onChange={handleChange}
+          className='mb-4' />
+        <button type="submit">Submit</button>
+      </form>
     );
-  } else if (data.me.role === 'employee' || data.me.role === 'reliever') {
+  } else if (currentUserData.me.role === 'employee' || currentUserData.me.role === 'reliever') {
     return (
-      <div class='flex-row justify-center' style={{color:'#fff'}}>
+      <div class='flex-row justify-center' style={{ color: '#fff' }}>
         Calendar will be implemented here
       </div>
     );
-    } else {
-      return (
-        <div>
-          Not logged in.
-        </div>
-      );
-    }
+  } else {
+    return (
+      <div>
+        Not logged in.
+      </div>
+    );
+  }
 };
 
 export default Profile;

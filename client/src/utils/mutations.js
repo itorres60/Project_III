@@ -28,7 +28,7 @@ export const CREATE_USER = gql`
 `;
 
 export const ADD_USER = gql`
-  mutation addUserMutation($calendarId: ID!, $email: String!) {
+  mutation addUser($calendarId: ID!, $email: String!) {
     addUser(calendarId: $calendarId, email: $email) {
         _id
         users
@@ -37,7 +37,7 @@ export const ADD_USER = gql`
 `;
 
 export const REMOVE_USER = gql`
-  mutation removeUserMutation($calendarId: ID!, $email: String!) {
+  mutation removeUser($calendarId: ID!, $email: String!) {
     removeUser(calendarId: $calendarId, email: $email) {
         _id
         users
@@ -46,7 +46,7 @@ export const REMOVE_USER = gql`
 `;
 
 export const CREATE_CALENDAR = gql`
-  mutation createCalendarMutation($companyName: String!){
+  mutation createCalendar($companyName: String!){
     createCalendar(companyName: $companyName) {
       _id
       companyName
@@ -58,7 +58,7 @@ export const CREATE_CALENDAR = gql`
 `;
 
 export const REMOVE_CALENDAR = gql`
-  mutation removeCalendarMutation($companyName: String!){
+  mutation removeCalendar($companyName: String!){
     removeCalender(companyName: $companyName) {
       _id
     }
@@ -66,7 +66,7 @@ export const REMOVE_CALENDAR = gql`
 `;
 
 export const CREATE_RESERVATION = gql`
-  mutation createReservationMutation($title: String!, $start: String!, $end: String, $calendarId: ID!) {
+  mutation createReservation($title: String!, $start: String!, $end: String, $calendarId: ID!) {
     createReservation(title: $title, start: $start, end: $end, calendarId: $calendarId) {
       _id
       title
@@ -77,7 +77,7 @@ export const CREATE_RESERVATION = gql`
 `;
 
 export const REMOVE_RESERVATION = gql`
-  mutation removeReservationMutation($reservationId: ID!, $calendarId:ID!) {
+  mutation removeReservation($reservationId: ID!, $calendarId:ID!) {
     removeReservation(reservationId: $reservationId, calendarId: $calendarId) {
       _id
       title
@@ -88,7 +88,7 @@ export const REMOVE_RESERVATION = gql`
 `;
 
 export const ACCEPT_RESERVATION = gql`
-  mutation acceptReservationMutation($reservationId: ID!) {
+  mutation acceptReservation($reservationId: ID!) {
     acceptReservation(reservationId: $reservationId) {
       _id
       title
@@ -100,7 +100,7 @@ export const ACCEPT_RESERVATION = gql`
 `;
 
 export const REMOVE_ACCEPTED_RESERVATION = gql`
-  mutation acceptReservationMutation($reservationId: ID!) {
+  mutation acceptReservation($reservationId: ID!) {
     removeReservationAccept(reservationId: $reservationId) {
       _id
       title
