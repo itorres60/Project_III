@@ -50,6 +50,9 @@ export const QUERY_CALENDARS = gql`
         admin {
           _id
         }
+        reservations {
+          _id
+        }
       }
     }
 `;
@@ -61,6 +64,9 @@ export const QUERY_CALENDAR = gql`
       companyName
       users
       admin {
+        _id
+      }
+      reservations {
         _id
       }
     }
@@ -82,9 +88,9 @@ export const QUERY_RESERVATIONS = gql`
     }
 `;
 
-export const QUERY_RESSERVATION = gql`
+export const QUERY_RESERVATION = gql`
   query reservation($reservationId: ID!) {
-    calendar(reservationId: $reservationId) {
+    reservation(reservationId: $reservationId) {
       _id
       title
       start
