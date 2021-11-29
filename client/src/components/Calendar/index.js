@@ -18,14 +18,17 @@ const Calendar = ({ calendar, userId, userRole }) => {
   if (reservationError) return `${reservationError.message}`;
   if (reservationAcceptError) return `${reservationAcceptError.message}`;
 
-  let color = null;
+  let color;
+
   const reservations = calendarData.calendar.reservations.map(reservation => {
     if(reservation.isAvailable) {
+      // change this variable for reservations that are accepted
       color = 'red';
     } else {
+      // changes this variable for reservations that are not accepted
       color = null
     }
-    console.log(color);
+
     return {
       title: reservation.title,
       start: reservation.start,
@@ -33,7 +36,7 @@ const Calendar = ({ calendar, userId, userRole }) => {
       reservationId: reservation._id,
       calendarId: calendar._id,
       color,
-      requestedUserId: reservation.requestedUserId
+      requestedUserId: reservation.requestedUser._id
     }
   })
 

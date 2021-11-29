@@ -71,6 +71,9 @@ export const QUERY_CALENDAR = gql`
         title
         start
         end
+        requestedUser {
+          _id
+        }
         assignedUser {
           _id
         }
