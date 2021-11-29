@@ -8,7 +8,6 @@ const Home = () => {
 
   if (loading) return 'Loading...';
   if (error) return `${error.messaage}`;
-
   return (
     <main className="flex-row justify-center">
       <Calendar calendar={data.me.calendars[0]} userId={data.me._id} userRole={data.me.role}></Calendar>

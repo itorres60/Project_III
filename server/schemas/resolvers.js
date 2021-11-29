@@ -34,8 +34,11 @@ const resolvers = {
     },
     // returns information about a single calendar based on _id
     calendar: async (parent, { calendarId }) => {
-      return Calendar.findOne({ _id: calendarId })
+      const calendar = await Calendar.findOne({ _id: calendarId })
         .select('-__v')
+        .populate('reservations')
+        
+      return calendar;
     },
     // returns information about all reservations
     reservations: async () => {

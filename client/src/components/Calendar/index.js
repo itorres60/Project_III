@@ -11,13 +11,11 @@ const Calendar = ({ calendar, userId, userRole }) => {
   const { loading: calendarLoading, error: calendarError, data: calendarData } = useQuery(QUERY_CALENDAR, {
     variables: { calendarId: calendar._id },
   });
-  const { loading: reservationLoading, error: reservationError, data: reservationData } = useQuery(QUERY_RESERVATIONS);
-
-  if (calendarLoading || reservationLoading) return 'Loading...';
+  console.log(calendarData);
+  if (calendarLoading) return 'Loading...';
   if (calendarError) return `${calendarError.message}`;
-  if (reservationError) return `${reservationError.message}`;
 
-  const reservations = reservationData.reservations.map(reservation => {
+  const reservations = calendarData.calendar.reservations.map(reservation => {
     return {
       title: reservation.title,
       start: reservation.start,

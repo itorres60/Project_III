@@ -60,7 +60,7 @@ export const QUERY_CALENDARS = gql`
 export const QUERY_CALENDAR = gql`
   query calendar($calendarId: ID!) {
     calendar(calendarId: $calendarId) {
-      _id
+       _id
       companyName
       users
       admin {
@@ -68,6 +68,13 @@ export const QUERY_CALENDAR = gql`
       }
       reservations {
         _id
+        title
+        start
+        end
+        assignedUser {
+          _id
+        }
+        isAvailable
       }
     }
   }
