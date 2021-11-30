@@ -32,10 +32,10 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
   const reservations = calendarData.calendar.reservations.map(reservation => {
     if (reservation.isAvailable) {
       // change this variable for reservations that are accepted
-      color = 'red';
+      color = '#9C27B0';
     } else {
       // changes this variable for reservations that are not accepted
-      color = '#333'
+      color = '#444'
     }
 
     return {

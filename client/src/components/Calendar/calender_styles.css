@@ -1,3 +1,40 @@
+::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 15px;
+}
+
+.fc-scroller {
+  color: #fff;
+}
+
+fc-daygrid-day-number {
+  color: #fff;
+}
+
 .fc .fc-scrollgrid-liquid {
   height: 100%;
 }
+
+.fc-toolbar-title{
+  color: #fff;
+}
+
+.fc-today-button{
+  display: none !important;
+}
+
+.fc-button-primary {
+  background-color:#333 !important;
+  border: none !important;
+  transition: background-color ease-in-out 250ms;
+}
+
+.fc-button-primary:hover {
+  background-color: #555 !important;
+  
+}
+

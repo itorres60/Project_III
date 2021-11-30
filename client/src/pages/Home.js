@@ -3,6 +3,7 @@ import Calendar from '../components/Calendar';
 import { QUERY_ME } from '../utils/queries';
 import { ADD_USER } from '../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
+import Card from '@mui/material/Card';
 
 const Home = () => {
   const [userFormState, setUserFormState] = useState({
@@ -44,20 +45,25 @@ const Home = () => {
   };
 
   return (
-    <main className="flex-row justify-center">
+    <main className="flex-column justify-center">
       {data.me.role === 'administrator' && <form id='modalTarget' onSubmit={handleUserFormSubmit}>
+      <Card style={{backgroundColor: '#333', padding: '2rem', color: '#fff', margin: 'auto'}} className='flex-row justify-center'>
+      
         <h2>Add a user to the calendar.</h2>
         <input
           placeholder="Employee's Email"
           name="email"
-          type="email"
+          type="email" 
           for="email"
           value={userFormState.email}
           onChange={handleUserChange}
-          className='mb-4' />
-        <button type="submit">Submit</button>
+          className='mb-4 form-input' />
+        <button type="submit" className="btn">Submit</button>
+        </Card>
       </form>}
+      <div className='mt-5 mb-4'>
       <Calendar calendarId={data.me.calendars[0]._id} userId={data.me._id} userRole={data.me.role} userFirstName={data.me.firstName}></Calendar>
+      </div>
     </main>
 
   );
