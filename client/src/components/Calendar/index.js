@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import FullCalendar from '@fullcalendar/react' // must go before plugins
+import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import styles from "./calender_styles.css"
 import { QUERY_CALENDAR } from '../../utils/queries';
@@ -61,11 +62,14 @@ const Calendar = ({ calendarId, userId, userRole }) => {
 
   return (
     <FullCalendar styles={styles}
-      plugins={[dayGridPlugin]}
+      plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
       weekends={true}
       events={reservations}
       eventClick={handleDateClick}
+      dateClick={(info) => {
+        console.log(info.dateStr)
+      }}
     />
   )
 }
