@@ -1257,3 +1257,10 @@ nav a:hover {
     align-items: center;
   }
 }
+
+
+@media screen and (min-width: 750px) {
+  .hide-mobile {
+    display: none;
+  }
+}

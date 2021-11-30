@@ -17,9 +17,24 @@ fc-daygrid-day-number {
 
 .fc .fc-scrollgrid-liquid {
   height: 100%;
-  margin-top: -23px;
 }
 
 .fc-toolbar-title{
   color: #fff;
 }
+
+.fc-today-button{
+  display: none !important;
+}
+
+.fc-button-primary {
+  background-color:#333 !important;
+  border: none !important;
+  transition: background-color ease-in-out 250ms;
+}
+
+.fc-button-primary:hover {
+  background-color: #555 !important;
+  
+}
+

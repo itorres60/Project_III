@@ -31,14 +31,13 @@ const Profile = () => {
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState)
 
     try {
       const { data: calendarData } = await createCalendar({
         variables: { ...formState },
       });
 
-      console.log(calendarData);
+      window.location.assign('/');
     } catch (e) {
       console.error(e);
     }

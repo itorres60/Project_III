@@ -30,7 +30,7 @@ const Header = () => {
           {Auth.loggedIn() ? (
             <>
             <div id='modalTarget'>
-            <CreateCalendarModal></CreateCalendarModal>
+            <CreateCalendarModal className='hide-mobile'></CreateCalendarModal>
             </div>
               <a href="/" onClick={logout}>
                 Logout
