@@ -107,7 +107,7 @@ const Signup = () => {
 
               <div className='mb-4'>
                 <FormControl component="fieldset">
-                  <FormLabel component="legend" color="secondary">Choose a role:</FormLabel>
+                  <FormLabel component="legend" color="secondary" style={{color:'#fff'}}>Choose a role:</FormLabel>
                   <RadioGroup
                     aria-label="role"
                     id="role"
@@ -115,8 +115,11 @@ const Signup = () => {
                     onChange={handleChange}
                   >
                     <FormControlLabel value="employee" control={<Radio color="secondary"/>} label="Employee" />
+                    <h6 style={{fontSize:'0.85rem', marginLeft: '2rem', color:'#9C27B0'}}>- Creates Reservations</h6>
                     <FormControlLabel value="reliever" control={<Radio color="secondary" />} label="Reliever" />
+                    <h6 style={{fontSize:'0.85rem', marginLeft: '2rem', color:'#9C27B0'}}>- Accepts Reservations</h6>
                     <FormControlLabel value="administrator" control={<Radio color="secondary" />} label="Administrator" />
+                    <h6 style={{fontSize:'0.85rem', marginLeft: '2rem', color:'#9C27B0'}}>- Controls Calendar(s)</h6>
                   </RadioGroup>
                 </FormControl>
               </div>

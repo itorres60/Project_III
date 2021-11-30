@@ -1,3 +1,25 @@
+::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 15px;
+}
+
+.fc-scroller {
+  color: #fff;
+}
+
+fc-daygrid-day-number {
+  color: #fff;
+}
+
 .fc .fc-scrollgrid-liquid {
   height: 100%;
+  margin-top: -23px;
+}
+
+.fc-toolbar-title{
+  color: #fff;
 }

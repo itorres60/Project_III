@@ -17,7 +17,7 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-  };
+};
 
 export default function CreateCalendarModal() {
     const [open, setOpen] = React.useState(false);
@@ -26,7 +26,7 @@ export default function CreateCalendarModal() {
 
     return (
         <div>
-            <Button onClick={handleOpen}>Open modal</Button>
+            <Button onClick={handleOpen} >Open modal</Button>
             <Modal
                 open={open}
                 onClose={handleClose}

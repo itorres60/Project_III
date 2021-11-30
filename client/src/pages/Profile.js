@@ -7,6 +7,9 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import { maxWidth } from '@mui/system';
+import Calendar from '../components/Calendar';
+
 
 
 const Profile = () => {
@@ -52,8 +55,10 @@ const Profile = () => {
   } else if (currentUserData.me.role === 'administrator') {
     // needs an input allowing the admin to create a calendar
     return (
-      <form id='modalTarget' onSubmit={handleFormSubmit}>
-        <h2>You do not have any active calendars. Input your company's name to create one:</h2>
+      <Card sx={{ minWidth: 275, maxWidth: 750 }} style={{backgroundColor:'#333', padding:'2.5rem', margin:'auto'}}>
+      <form id='modalTarget' onSubmit={handleFormSubmit} style={{color: '#fff'}} className='flex-row justify-center'>
+      <h3 >Looks like you don't have any calendars!</h3>
+      <h3 className='mb-4'>Create one below:</h3>
         <input
           placeholder="Your company's name"
           name="companyName"
@@ -61,15 +66,19 @@ const Profile = () => {
           for="companyName"
           value={formState.companyName}
           onChange={handleChange}
-          className='mb-4' />
-        <button type="submit">Submit</button>
+          className='mb-4 form-input' />
+        <button type="submit" className='btn'>Submit</button>
       </form>
+      </Card>
     );
   } else if (currentUserData.me.role === 'employee' || currentUserData.me.role === 'reliever') {
     return (
-      <div class='flex-row justify-center' style={{ color: '#fff' }}>
+      <Card sx={{ minWidth: 275, maxWidth: 500 }} style={{backgroundColor:'#333', padding:'2.5rem', margin:'auto'}} class='flex-row justify-center'>
+      <div class='flex-row justify-center text-center mb-2' style={{ color: '#fff' }}>
         You are not assigned to any calendars. Contact your administrator if this is a mistake.
       </div>
+      <a href='/login' className='btn'>Return to Login</a>
+      </Card>
     );
   } else {
     return (

@@ -4,8 +4,8 @@
   --tertiary: #333;
   --quatrinary: #cadbda;
   --light: #e1f5f4;
-  --dark: #0e270c;
-  --error: rgb(228, 46, 1);
+  --dark: #fff;
+  --error: rgb(3, 3, 3);
   --border-radius: 0.3rem;
   --spacing-one: calc(1rem * 0.25);
   --spacing-two: calc(1rem * 0.5);
@@ -124,8 +124,9 @@ nav a:hover {
 
 .btn:hover,
 .pill:hover {
-  color: var(--secondary);
-  background-color: var(--dark);
+  color: #fff;
+  background-color: var(--tertiary);
+  cursor: pointer;
 }
 
 .btn:hover a,
