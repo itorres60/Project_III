@@ -68,7 +68,7 @@ const Profile = () => {
   } else if (currentUserData.me.role === 'employee' || currentUserData.me.role === 'reliever') {
     return (
       <div class='flex-row justify-center' style={{ color: '#fff' }}>
-        Calendar will be implemented here
+        You are not assigned to any calendars. Contact your administrator if this is a mistake.
       </div>
     );
   } else {
