@@ -15,7 +15,7 @@ const Home = () => {
   });
   const { loading, error, data } = useQuery(QUERY_ME);
   const [addUser, { loading: userLoading, error: userError }] = useMutation(ADD_USER);
-  const [createReservation, { loading: reservationLoading, error: reservationError }] = useMutation(CREATE_RESERVATION, { refetchQueries: [ { query: QUERY_ME } ] } );
+  const [createReservation, { loading: reservationLoading, error: reservationError }] = useMutation(CREATE_RESERVATION);
 
   if (loading || userLoading || reservationLoading) return 'Loading...';
   if (reservationError) return `${reservationError.message}`;
