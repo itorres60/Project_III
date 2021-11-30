@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Calendar from '../components/Calendar';
-import { QUERY_ME } from '../utils/queries';
+import { QUERY_ME, QUERY_CALENDAR } from '../utils/queries';
 import { ADD_USER, CREATE_RESERVATION } from '../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -15,7 +15,7 @@ const Home = () => {
   });
   const { loading, error, data } = useQuery(QUERY_ME);
   const [addUser, { loading: userLoading, error: userError }] = useMutation(ADD_USER);
-  const [createReservation, { loading: reservationLoading, error: reservationError }] = useMutation(CREATE_RESERVATION);
+  const [createReservation, { loading: reservationLoading, error: reservationError }] = useMutation(CREATE_RESERVATION, { refetchQueries: [ { query: QUERY_ME } ] } );
 
   if (loading || userLoading || reservationLoading) return 'Loading...';
   if (reservationError) return `${reservationError.message}`;
@@ -61,7 +61,6 @@ const Home = () => {
   // submit form
   const handleRequestFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState)
 
     try {
       const { data: reservationData } = await createReservation({
@@ -120,7 +119,7 @@ const Home = () => {
           className='mb-4' />
         <button type="submit">Submit</button>
       </form>}
-      <Calendar calendar={data.me.calendars[0]} userId={data.me._id} userRole={data.me.role}></Calendar>
+      <Calendar calendarId={data.me.calendars[0]._id} userId={data.me._id} userRole={data.me.role}></Calendar>
     </main>
 
   );

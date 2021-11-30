@@ -6,11 +6,11 @@ import { QUERY_CALENDAR } from '../../utils/queries';
 import { REMOVE_RESERVATION, ACCEPT_RESERVATION } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 
-const Calendar = ({ calendar, userId, userRole }) => {
-  const [removeReservation, { loading: reservationLoading, error: reservationError}] = useMutation(REMOVE_RESERVATION);
-  const [acceptReservation, { loading: reservationAcceptLoading, error: reservationAcceptError}] = useMutation(ACCEPT_RESERVATION);
+const Calendar = ({ calendarId, userId, userRole }) => {
+  const [removeReservation, { loading: reservationLoading, error: reservationError}] = useMutation(REMOVE_RESERVATION, { refetchQueries: [ { query: QUERY_CALENDAR, variables: { calendarId: calendarId } } ] });
+  const [acceptReservation, { loading: reservationAcceptLoading, error: reservationAcceptError}] = useMutation(ACCEPT_RESERVATION, { refetchQueries: [ { query: QUERY_CALENDAR, variables: { calendarId: calendarId } } ] } );
   const { loading: calendarLoading, error: calendarError, data: calendarData } = useQuery(QUERY_CALENDAR, {
-    variables: { calendarId: calendar._id },
+    variables: { calendarId },
   });
 
   if (calendarLoading || reservationLoading || reservationAcceptLoading) return 'Loading...';
@@ -34,7 +34,7 @@ const Calendar = ({ calendar, userId, userRole }) => {
       start: reservation.start,
       end: reservation.end,
       reservationId: reservation._id,
-      calendarId: calendar._id,
+      calendarId,
       color,
       requestedUserId: reservation.requestedUser._id
     }
