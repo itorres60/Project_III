@@ -28,7 +28,10 @@ const Login = (props) => {
 
     try {
       const { data } = await login({
-        variables: { ...formState },
+        variables: { 
+          email: formState.email.toLowerCase(),
+          password: formState.password
+         },
       });
 
       Auth.login(data.login.token);
