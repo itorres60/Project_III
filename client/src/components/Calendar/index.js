@@ -71,64 +71,28 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
   }
 
   const selectDate = (info) => {
-    //The first thing this function does is check to see if there is a value in the reservationsAr array. If there IS NOT then the logic will skip over to line 96.
-    if (reservationAr.length) {
-      // if a value DOES exists in the array it is implied as the startDate therefore this second date is going to be pushed as the second or endDate for the reservation.
-      reservationAr.push(info.dateStr)
-      //After the second date has been pushed the user is to confirm the reservation dates or cancel the request.
-      const confirmReservation = window.confirm(`Would you like to request ${reservationAr[0]} through ${reservationAr[1]} for relief or CANCEL reservation?`)
-      //if the user cancels the reservation process then the user will be alerted and the array will be clear or set back to empty.
-      if (!confirmReservation) {
-        window.alert("Request cancelled!")
-        //clear reservationAr for next use
-        reservationAr = [];
-        return;
-      } else {
-        reservationTitle = confirmReservation;
-      }
-      //If the user confirms the reservation dates then the user will be alerted and the values should then be sent to the server.
-      const promptTwo = window.prompt(`You have requested ${reservationAr[0]} through ${reservationAr[1]} for relief!`)
-      //Array is sent to the server/console.log for verification
-      if (promptTwo) {
-        reservationTitle = promptTwo
-      } else if (promptTwo === '') {
-        reservationTitle = `Cover ${userFirstName}`
-      } else {
-        window.alert("You have cancelled your request")
-        return;
-      }
-      createReservation({
-        variables: {
-          start: reservationAr[0],
-          end: reservationAr[1],
-          title: reservationTitle,
-          calendarId: calendarId
+    if (userRole === 'employee') {
+      //The first thing this function does is check to see if there is a value in the reservationsAr array. If there IS NOT then the logic will skip over to line 96.
+      if (reservationAr.length) {
+        // if a value DOES exists in the array it is implied as the startDate therefore this second date is going to be pushed as the second or endDate for the reservation.
+        reservationAr.push(info.dateStr)
+        //After the second date has been pushed the user is to confirm the reservation dates or cancel the request.
+        const confirmReservation = window.confirm(`Would you like to request ${reservationAr[0]} through ${reservationAr[1]} for relief or CANCEL reservation?`)
+        //if the user cancels the reservation process then the user will be alerted and the array will be clear or set back to empty.
+        if (!confirmReservation) {
+          window.alert("Request cancelled!")
+          //clear reservationAr for next use
+          reservationAr = [];
+          return;
+        } else {
+          reservationTitle = confirmReservation;
         }
-      });
-      reservationTitle = '';
-      reservationAr = []
-      return
-    }
-    //If the array is empty at the time that a date is clicked the the user will be asked if they'd like to select and end date.
-    const askEndDate = window.confirm(`You have selected ${info.dateStr} as your start date. Would you like to add an end date`)
-    //If the user confirms to request an endDate then the process continues on line 118
-
-    //If no end date is desired the user is asked if they would like to request selected date for relief or cancel reservation process.
-    if (!askEndDate) {
-      const askCancel = window.confirm("Would you like to request " + info.dateStr + " for relief or CANCEL reservation?")
-      //If the user cancle the reservation process then the user is alerted, no value is pushed and the function ends.
-      if (!askCancel) {
-        window.alert("You have cancelled your request")
-        return;
-      } else {
-        //if the user confirms the request for the single day then the date is pushed to the array and the user is alerted.
-        reservationAr.push(info.dateStr);
-        const promptOne = window.prompt("You have requested " + info.dateStr + " for relief! Input a title for your reservation:");
-        //At this point the array can be sent to the server/console.log
+        //If the user confirms the reservation dates then the user will be alerted and the values should then be sent to the server.
+        const promptTwo = window.prompt(`You have requested ${reservationAr[0]} through ${reservationAr[1]} for relief!`)
         //Array is sent to the server/console.log for verification
-        if (promptOne) {
-          reservationTitle = promptOne
-        } else if (promptOne === '') {
+        if (promptTwo) {
+          reservationTitle = promptTwo
+        } else if (promptTwo === '') {
           reservationTitle = `Cover ${userFirstName}`
         } else {
           window.alert("You have cancelled your request")
@@ -137,18 +101,56 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
         createReservation({
           variables: {
             start: reservationAr[0],
+            end: reservationAr[1],
             title: reservationTitle,
             calendarId: calendarId
           }
         });
         reservationTitle = '';
-        //after the data has been sent to the server/console.log the the reservationsAr array is cleared and the function ends.
-        reservationAr = [];
+        reservationAr = []
         return
       }
-      //if the user confirms to add an end date then the first date is pushed to the reservationAr and the and the user is then free to select a date in the main UI.
-    } else if (askEndDate) {
-      reservationAr.push(info.dateStr);
+      //If the array is empty at the time that a date is clicked the the user will be asked if they'd like to select and end date.
+      const askEndDate = window.confirm(`You have selected ${info.dateStr} as your start date. Would you like to add an end date`)
+      //If the user confirms to request an endDate then the process continues on line 118
+
+      //If no end date is desired the user is asked if they would like to request selected date for relief or cancel reservation process.
+      if (!askEndDate) {
+        const askCancel = window.confirm("Would you like to request " + info.dateStr + " for relief or CANCEL reservation?")
+        //If the user cancle the reservation process then the user is alerted, no value is pushed and the function ends.
+        if (!askCancel) {
+          window.alert("You have cancelled your request")
+          return;
+        } else {
+          //if the user confirms the request for the single day then the date is pushed to the array and the user is alerted.
+          reservationAr.push(info.dateStr);
+          const promptOne = window.prompt("You have requested " + info.dateStr + " for relief! Input a title for your reservation:");
+          //At this point the array can be sent to the server/console.log
+          //Array is sent to the server/console.log for verification
+          if (promptOne) {
+            reservationTitle = promptOne
+          } else if (promptOne === '') {
+            reservationTitle = `Cover ${userFirstName}`
+          } else {
+            window.alert("You have cancelled your request")
+            return;
+          }
+          createReservation({
+            variables: {
+              start: reservationAr[0],
+              title: reservationTitle,
+              calendarId: calendarId
+            }
+          });
+          reservationTitle = '';
+          //after the data has been sent to the server/console.log the the reservationsAr array is cleared and the function ends.
+          reservationAr = [];
+          return
+        }
+        //if the user confirms to add an end date then the first date is pushed to the reservationAr and the and the user is then free to select a date in the main UI.
+      } else if (askEndDate) {
+        reservationAr.push(info.dateStr);
+      }
     }
   }
 
