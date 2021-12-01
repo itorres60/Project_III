@@ -5,6 +5,7 @@ import { ADD_USER } from '../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 import CreateCalendarModal from '../utils/modal';
 
+
 const Home = () => {
   const [userFormState, setUserFormState] = useState({
     email: ''
@@ -47,11 +48,11 @@ const Home = () => {
   return (
     <main className="flex-column justify-center">
       {data.me.role === 'administrator' &&
-        <div id='modalTarget'>
-          <CreateCalendarModal className='hide-mobile' handleUserFormSubmit={handleUserFormSubmit} handleUserChange={handleUserChange} userFormState={userFormState}></CreateCalendarModal>
+        <div id='modalTarget' className='custom-mobile flex-row justify-flex-end'>
+          <CreateCalendarModal className='hide-mobile mt-auto' handleUserFormSubmit={handleUserFormSubmit} handleUserChange={handleUserChange} userFormState={userFormState}></CreateCalendarModal>
         </div>
       }
-      <div className='mt-5 mb-4'>
+      <div className='mt-5 mb-5 card-calendar'>
         <Calendar calendarId={data.me.calendars[0]._id} userId={data.me._id} userRole={data.me.role} userFirstName={data.me.firstName}></Calendar>
       </div>
     </main>

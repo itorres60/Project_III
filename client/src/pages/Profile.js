@@ -55,9 +55,9 @@ const Profile = () => {
     // needs an input allowing the admin to create a calendar
     return (
       <Card sx={{ minWidth: 275, maxWidth: 750 }} style={{backgroundColor:'#333', padding:'2.5rem', margin:'auto'}}>
-      <form id='modalTarget' onSubmit={handleFormSubmit} style={{color: '#fff'}} className='flex-row justify-center'>
-      <h3 >Looks like you don't have any calendars!</h3>
-      <h3 className='mb-4'>Create one below:</h3>
+      <form onSubmit={handleFormSubmit} style={{color: '#fff'}} className='flex-row justify-center'>
+      <h3 className='mobile-h3 mb-0 mt-0'>Looks like you don't have any calendars!</h3>
+      <h3 className='mb-4 mobile-h3'>Create one below:</h3>
         <input
           placeholder="Your company's name"
           name="companyName"
@@ -72,11 +72,16 @@ const Profile = () => {
     );
   } else if (currentUserData.me.role === 'employee' || currentUserData.me.role === 'reliever') {
     return (
-      <Card sx={{ minWidth: 275, maxWidth: 500 }} style={{backgroundColor:'#333', padding:'2.5rem', margin:'auto'}} class='flex-row justify-center'>
+      <Card sx={{ minWidth: 275, maxWidth: 500 }} style={{backgroundColor:'#333', padding:'2.5rem', margin:'auto', borderRadius: '5px'}} class=''>
       <div class='flex-row justify-center text-center mb-2' style={{ color: '#fff' }}>
-        You are not assigned to any calendars. Contact your administrator if this is a mistake.
-      </div>
-      <a href='/login' className='btn'>Return to Login</a>
+        <p>You are not assigned to any calendars. Contact your administrator if this is a mistake.</p>
+        
+        </div>
+        <div class='flex-row justify-center'>
+        <a href='/login' className='btn'>Return to Login</a>
+        </div>
+      
+      
       </Card>
     );
   } else {
