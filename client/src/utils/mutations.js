@@ -101,7 +101,7 @@ export const ACCEPT_RESERVATION = gql`
 `;
 
 export const REMOVE_ACCEPTED_RESERVATION = gql`
-  mutation acceptReservation($reservationId: ID!) {
+  mutation removeAcceptReservation($reservationId: ID!) {
     removeReservationAccept(reservationId: $reservationId) {
       _id
       title
