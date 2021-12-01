@@ -34,7 +34,7 @@ This project should be used as a tool to streamline a companies relief schedulin
 
 ## Screenshot
 
-Need screenshots of application
+![Screenshot of Calendar](client/public/images/readme1.png)
 
 ## Contributors
 
