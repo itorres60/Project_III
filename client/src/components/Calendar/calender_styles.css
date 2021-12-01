@@ -44,7 +44,6 @@ fc-daygrid-day-number {
   
 }
 
-
 @media screen and (max-width: 1130px) {
   .fc .fc-scrollgrid-liquid {
     height: 219% !important;
@@ -64,5 +63,9 @@ fc-daygrid-day-number {
     padding: 2.25rem 1rem 17rem 1rem;
     border-radius: 5px;
     height: 100% !important;
+    
+@media screen and (max-width: 450px) {
+  .fc .fc-scrollgrid-liquid {
+    height: 175%;
   }
 }

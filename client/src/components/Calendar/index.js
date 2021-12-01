@@ -4,7 +4,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import styles from "./calender_styles.css"
 import { QUERY_CALENDAR } from '../../utils/queries';
-import { REMOVE_RESERVATION, ACCEPT_RESERVATION, CREATE_RESERVATION } from '../../utils/mutations';
+import { REMOVE_RESERVATION, ACCEPT_RESERVATION, CREATE_RESERVATION, REMOVE_ACCEPTED_RESERVATION } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
 
 let reservationAr = [];
@@ -15,15 +15,18 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
 
   const [acceptReservation, { loading: reservationAcceptLoading, error: reservationAcceptError }] = useMutation(ACCEPT_RESERVATION, { refetchQueries: [{ query: QUERY_CALENDAR, variables: { calendarId: calendarId } }] });
 
+  const [removeAcceptReservation, { loading: reservationRemoveAcceptLoading, error: reservationRemoveAcceptError }] = useMutation(REMOVE_ACCEPTED_RESERVATION, { refetchQueries: [{ query: QUERY_CALENDAR, variables: { calendarId: calendarId } }] });
+
   const [createReservation, { loading: createReservationLoading, error: createReservationError }] = useMutation(CREATE_RESERVATION, { refetchQueries: [{ query: QUERY_CALENDAR, variables: { calendarId: calendarId } }] });
 
   const { loading: calendarLoading, error: calendarError, data: calendarData } = useQuery(QUERY_CALENDAR, {
     variables: { calendarId },
   });
 
-  if (calendarLoading || reservationLoading || reservationAcceptLoading || createReservationLoading) return 'Loading...';
+  if (calendarLoading || reservationLoading || reservationAcceptLoading || createReservationLoading || reservationRemoveAcceptLoading) return 'Loading...';
   if (calendarError) return `${calendarError.message}`;
   if (createReservationError) return `${createReservationError.message}`;
+  if (reservationRemoveAcceptError) return `${reservationRemoveAcceptError.message}`;
   if (reservationError) return `${reservationError.message}`;
   if (reservationAcceptError) return `${reservationAcceptError.message}`;
 
@@ -45,12 +48,24 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
       reservationId: reservation._id,
       calendarId,
       color,
-      requestedUserId: reservation.requestedUser._id
+      requestedUserId: reservation.requestedUser._id,
+      assignedUserId: reservation.assignedUser
     }
   })
 
   const handleDateClick = (arg) => {
-    if (userRole === 'reliever') {
+
+    if (arg.event._def.extendedProps.assignedUserId) {
+      if (userId === arg.event._def.extendedProps.assignedUserId._id) {
+        if (window.confirm("Do you want to remove your acceptance from this reservation?")) {
+          removeAcceptReservation({
+            variables: {
+              reservationId: arg.event._def.extendedProps.reservationId
+            }
+          })
+        }
+      }
+    } else if (userRole === 'reliever') {
       if (window.confirm("Do you want to accept this reservation?")) {
         acceptReservation({
           variables: {
