@@ -38,3 +38,8 @@ fc-daygrid-day-number {
   
 }
 
+@media screen and (max-width: 400px) {
+  .fc .fc-scrollgrid-liquid {
+    height: 175%;
+  }
+}
