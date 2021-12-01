@@ -7,7 +7,6 @@ import { slide as Menu } from 'react-burger-menu'
 
 
 import Auth from '../../utils/auth';
-import CreateCalendarModal from '../../utils/modal';
 
 const Header = () => {
   const logout = event => {
@@ -29,9 +28,6 @@ const Header = () => {
         <nav className="text-center nav-bar">
           {Auth.loggedIn() ? (
             <>
-            <div id='modalTarget'>
-            <CreateCalendarModal className='hide-mobile'></CreateCalendarModal>
-            </div>
               <a href="/" onClick={logout}>
                 Logout
               </a>

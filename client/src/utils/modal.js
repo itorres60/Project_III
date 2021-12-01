@@ -20,35 +20,35 @@ const style = {
     p: 4,
 };
 
-export default function CreateCalendarModal() {
+export default function CreateCalendarModal({ handleUserFormSubmit, handleUserChange, userFormState }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     return (
         <div className='hide-mobile'>
-            <Button onClick={handleOpen} >Open modal</Button>
+            <Button onClick={handleOpen} type="submit" size="large" variant="contained" style={{ backgroundColor: '#9C27B0' }} >Add User</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
-                   
-                    <Card>
-                        <h2>Add a user to the calendar.</h2>
-                        <input
-                            placeholder="Employee's Email"
-                            name="email"
-                            type="email"
-                            for="email"
-                            value={userFormState.email}
-                            onChange={handleUserChange}
-                            className='mb-4 form-input' />
-                        <button type="submit" className="btn">Submit</button>
-                    </Card>
-                </Box>
+                    <form id='modalTarget' onSubmit={handleUserFormSubmit}>
+                        <Card style={{ backgroundColor: '#333', padding: '2rem', color: '#fff', margin: 'auto' }} className='flex-row justify-center'>
+
+                            <h2>Add a user to the calendar.</h2>
+                            <input
+                                placeholder="Employee's Email"
+                                name="email"
+                                type="email"
+                                for="email"
+                                value={userFormState.email}
+                                onChange={handleUserChange}
+                                className='mb-4 form-input' />
+                            <button type="submit" className="btn">Submit</button>
+                        </Card>
+                    </form>
             </Modal>
         </div>
     );
