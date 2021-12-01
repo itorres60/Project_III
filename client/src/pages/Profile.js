@@ -50,7 +50,7 @@ const Profile = () => {
   if (calendarError) return `${calendarError.message}`;
 
   if (currentUserData.me.calendars.length >= 1) {
-    return (<Redirect to="/" />);
+    return (<Redirect to="/calendar" />);
   } else if (currentUserData.me.role === 'administrator') {
     // needs an input allowing the admin to create a calendar
     return (
@@ -81,9 +81,7 @@ const Profile = () => {
     );
   } else {
     return (
-      <div>
-        Not logged in.
-      </div>
+      <Redirect to="/login" />
     );
   }
 };
