@@ -3,16 +3,11 @@ import { Redirect } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import { CREATE_CALENDAR } from '../utils/mutations';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import { maxWidth } from '@mui/system';
-import Calendar from '../components/Calendar';
 
 
 
-const Profile = () => {
+const Initial = () => {
   const [formState, setFormState] = useState({
     companyName: ''
   });
@@ -37,7 +32,7 @@ const Profile = () => {
         variables: { ...formState },
       });
 
-      window.location.assign('/');
+      window.location.assign('/calendar');
     } catch (e) {
       console.error(e);
     }
@@ -46,7 +41,7 @@ const Profile = () => {
   const { loading, error, data: currentUserData } = useQuery(QUERY_ME);
 
   if (loading) return 'Loading...';
-  if (error) return `${error.message}`;
+  if (error) return (<Redirect to="/login" />);
   if (calendarError) return `${calendarError.message}`;
 
   if (currentUserData.me.calendars.length >= 1) {
@@ -79,11 +74,7 @@ const Profile = () => {
       <a href='/login' className='btn'>Return to Login</a>
       </Card>
     );
-  } else {
-    return (
-      <Redirect to="/login" />
-    );
   }
 };
 
-export default Profile;
+export default Initial;
