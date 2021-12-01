@@ -1257,3 +1257,14 @@ nav a:hover {
     align-items: center;
   }
 }
+
+@media screen and (max-width: 750px) {
+  .custom-mobile {
+    margin-top: -20px;
+    font-size: 1rem;
+  }
+
+  .mobile-h3 {
+    font-size: 1.5rem;
+  }
+}
