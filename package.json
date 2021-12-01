@@ -21,6 +21,7 @@
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.0",
     "@mui/material": "^5.2.0",
     "material-ui": "^0.20.2",
     "react-burger-menu": "^3.0.6"
