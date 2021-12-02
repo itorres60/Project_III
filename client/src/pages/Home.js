@@ -53,7 +53,7 @@ const Home = () => {
           <CreateCalendarModal className='hide-mobile' handleUserFormSubmit={handleUserFormSubmit} handleUserChange={handleUserChange} userFormState={userFormState}></CreateCalendarModal>
         </div>
       }
-      <div className='mt-5 mb-4'>
+      <div className='mt-5 mb-4 calendar-card'>
         <Calendar calendarId={data.me.calendars[0]._id} userId={data.me._id} userRole={data.me.role} userFirstName={data.me.firstName}></Calendar>
       </div>
     </main>
