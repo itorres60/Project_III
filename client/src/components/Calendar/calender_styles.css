@@ -38,12 +38,24 @@ fc-daygrid-day-number {
   
 }
 
+.calendar-card{
+  background-color: #333 !important;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
 @media screen and (max-width: 450px) {
   .fc .fc-scrollgrid-liquid {
-    height: 175%;
+    height: 200%;
+    overflow: hidden !important;
   }
 
   .fc-toolbar-title{
     margin-top: -35px !important;
+  }
+
+  .calendar-card{
+    background-color: #333 !important;
+    padding: 2.15rem 1rem 14rem 1rem;
   }
 }

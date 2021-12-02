@@ -68,10 +68,11 @@ const Initial = () => {
   } else if (currentUserData.me.role === 'employee' || currentUserData.me.role === 'reliever') {
     return (
       <Card sx={{ minWidth: 275, maxWidth: 500 }} style={{backgroundColor:'#333', padding:'2.5rem', margin:'auto'}} class='flex-row justify-center'>
-      <div class='flex-row justify-center text-center mb-2' style={{ color: '#fff' }}>
+      <div class='flex-column justify-center text-center mb-2' style={{ color: '#fff' }}>
         You are not assigned to any calendars. Contact your administrator if this is a mistake.
-      </div>
+      
       <a href='/login' className='btn'>Return to Login</a>
+      </div>
       </Card>
     );
   }
