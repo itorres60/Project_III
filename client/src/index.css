@@ -3,6 +3,7 @@
   --secondary: #9C27B0;
   --tertiary: #333;
   --quatrinary: #cadbda;
+  --accent-gold: #FFD700;
   --light: #e1f5f4;
   --dark: #fff;
   --error: rgb(3, 3, 3);
@@ -1255,5 +1256,20 @@ nav a:hover {
 
   .align-center-xl {
     align-items: center;
+  }
+}
+
+@media screen and (min-width: 450px) {
+  strong {
+    font-size: 2rem;
+  }
+  h6 {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .role-mobile {
+    font-size: 0.95rem !important;
   }
 }

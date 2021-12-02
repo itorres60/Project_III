@@ -42,4 +42,8 @@ fc-daygrid-day-number {
   .fc .fc-scrollgrid-liquid {
     height: 175%;
   }
+
+  .fc-toolbar-title{
+    margin-top: -35px !important;
+  }
 }
