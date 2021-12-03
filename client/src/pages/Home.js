@@ -46,12 +46,14 @@ const Home = () => {
 
   return (
     <main className="flex-column justify-center">
+    
       {data.me.role === 'administrator' &&
-        <div id='modalTarget'>
+        <div id='modalTarget' className='flex-row justify-space-between align-center'>
+        <strong style={{color:'#fff', marginTop: '-20px'}} >{data.me.firstName} {data.me.lastName}<span style={{fontSize:'1.25rem', color:'#999'}} className='flex-row align-center role-mobile'>{data.me.role.charAt(0).toUpperCase()}{data.me.role.slice(1)}</span></strong>
           <CreateCalendarModal className='hide-mobile' handleUserFormSubmit={handleUserFormSubmit} handleUserChange={handleUserChange} userFormState={userFormState}></CreateCalendarModal>
         </div>
       }
-      <div className='mt-5 mb-4'>
+      <div className='mt-5 mb-4 calendar-card'>
         <Calendar calendarId={data.me.calendars[0]._id} userId={data.me._id} userRole={data.me.role} userFirstName={data.me.firstName}></Calendar>
       </div>
     </main>
