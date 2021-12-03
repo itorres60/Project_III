@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node --max-http-header-size=16384 server.js",
+    "start": "node --max-http-header-size=1624384 server.js",
     "watch": "nodemon"
   },
   "keywords": [],
