@@ -3,7 +3,7 @@
     "homepage": "https://stormy-falls-11237.herokuapp.com/",
     "version": "0.1.0",
     "private": true,
-    "proxy": "http://localhost:3000/",
+    "proxy": "http://localhost:3001/",
     "dependencies": {
         "@apollo/client": "^3.3.16",
         "@fullcalendar/daygrid": "^5.10.1",
