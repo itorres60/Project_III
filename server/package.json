@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "server.js",
-    "watch": "nodemon --ignore client"
+    "watch": "nodemon"
   },
   "keywords": [],
   "author": "",
