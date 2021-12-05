@@ -1,14 +1,14 @@
 
 import * as React from 'react';
-import Box from '@mui/material/Box';
+/* import Box from '@mui/material/Box'; */
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+/* import Typography from '@mui/material/Typography'; */
 import Modal from '@mui/material/Modal';
-import CREATE_CALENDAR from './mutations'
-import REMOVE_CALENDAR from './mutations'
+/* import CREATE_CALENDAR from './mutations' */
+/* import REMOVE_CALENDAR from './mutations' */ 
 import Card from '@mui/material/Card';
 
-const style = {
+/* const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -18,7 +18,7 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-};
+}; */
 
 export default function CreateCalendarModal({ handleUserFormSubmit, handleUserChange, userFormState }) {
     const [open, setOpen] = React.useState(false);

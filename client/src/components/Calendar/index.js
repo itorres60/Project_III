@@ -2,7 +2,7 @@ import React from 'react'
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-import styles from "./calender_styles.css"
+import "./calender_styles.css"
 import { QUERY_CALENDAR } from '../../utils/queries';
 import { REMOVE_RESERVATION, ACCEPT_RESERVATION, CREATE_RESERVATION, REMOVE_ACCEPTED_RESERVATION } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
@@ -54,7 +54,19 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
   })
 
   const handleDateClick = (arg) => {
+    // if you are the owner of an accepted reservation
+    if (userRole === "employee" && userId === arg.event._def.extendedProps.requestedUserId && arg.event._def.extendedProps.assignedUserId) {
+      if (window.confirm("Do you want to remove this ACCEPTED reservation?")) {
+        removeReservation({
+          variables: {
+            reservationId: arg.event._def.extendedProps.reservationId,
+            calendarId: arg.event._def.extendedProps.calendarId
+          }
+        })
+      }
+    }
 
+    // if you are the relief on a reservation
     if (arg.event._def.extendedProps.assignedUserId) {
       if (userId === arg.event._def.extendedProps.assignedUserId._id) {
         if (window.confirm("Do you want to remove your acceptance from this reservation?")) {
@@ -170,7 +182,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
   }
 
   return (
-    <FullCalendar styles={styles}
+    <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
       weekends={true}

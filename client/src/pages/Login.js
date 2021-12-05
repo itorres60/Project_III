@@ -10,7 +10,7 @@ import Auth from '../utils/auth';
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error }] = useMutation(LOGIN_USER);
+const [login/* , { error } */] = useMutation(LOGIN_USER);
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -36,7 +36,7 @@ const Login = (props) => {
 
       Auth.login(data.login.token);
     } catch (e) {
-      console.error(e);
+      window.alert(`Invalid login information.  Please try again or contact administrator for access.`)
     }
 
     // clear form values
@@ -60,7 +60,6 @@ const Login = (props) => {
               <input
                 name="email"
                 type="email"
-                for="email"
                 value={formState.email}
                 placeholder="example@mail.com"
                 style={{ marginLeft: '2rem' }}
@@ -72,24 +71,21 @@ const Login = (props) => {
               <input
                 name="password"
                 type="password"
-                for="password"
                 value={formState.password}
                 placeholder="••••••••••"
                 onChange={handleChange}>
               </input>
-              <CardActions className="flex-row justify-center">
-            <Button type="submit" size="large" variant="contained" style={{ backgroundColor: '#9C27B0' }}>Login</Button>
-          </CardActions>
+              <CardActions className="flex-row justify-center mt-4">
+                <Button type="submit" size="large" variant="contained" style={{ backgroundColor: '#9C27B0' }}>Login</Button>
+              </CardActions>
             </form>
           </CardContent>
           
-          <div className="flex-row justify-center mb-4">
-            <p style={{ color: '#fff' }}>Don't have an account? 
-            <br />
-              <div className='flex-row justify-center'>
+          <div className="flex-column justify-center mb-4">
+            <p style={{ color: '#fff' }} className='text-center'>Don't have an account?</p>
+            <div className='flex-row justify-center'>
                 <a style={{ color: '#29b6f6' }} href="/signup">Signup</a>
-              </div>
-            </p>
+            </div>
           </div>
         </Card>
       </div>

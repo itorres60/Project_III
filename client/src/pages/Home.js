@@ -32,7 +32,7 @@ const Home = () => {
     console.log(userFormState)
 
     try {
-      const { data: userData } = await addUser({
+      /* const { data: userData } = */await addUser({
         variables: {
           email: userFormState.email.toLowerCase(),
           calendarId: data.me.calendars[0]._id

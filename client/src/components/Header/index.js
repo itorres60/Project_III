@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { slide as Menu } from 'react-burger-menu'
 
 // import styles from './burger_styles.css'
 
@@ -20,7 +19,7 @@ const Header = () => {
 
       <div className="container flex-row justify-space-between-lg justify-center align-center">
         <Link to="/">
-          <h1>Relief & Rotation</h1>
+          <h1>Relief & Rotations</h1>
         </Link>
 
           

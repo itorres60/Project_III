@@ -28,7 +28,7 @@ const Initial = () => {
     event.preventDefault();
 
     try {
-      const { data: calendarData } = await createCalendar({
+      /* const { data: calendarData } = */await createCalendar({
         variables: { ...formState },
       });
 
@@ -67,8 +67,8 @@ const Initial = () => {
     );
   } else if (currentUserData.me.role === 'employee' || currentUserData.me.role === 'reliever') {
     return (
-      <Card sx={{ minWidth: 275, maxWidth: 500 }} style={{backgroundColor:'#333', padding:'2.5rem', margin:'auto'}} class='flex-row justify-center'>
-      <div class='flex-column justify-center text-center mb-2' style={{ color: '#fff' }}>
+      <Card sx={{ minWidth: 275, maxWidth: 500 }} style={{backgroundColor:'#333', padding:'2.5rem', margin:'auto'}} className='flex-row justify-center'>
+      <div className='flex-column justify-center text-center mb-2' style={{ color: '#fff' }}>
         You are not assigned to any calendars. Contact your administrator if this is a mistake.
       
       <a href='/login' className='btn'>Return to Login</a>
