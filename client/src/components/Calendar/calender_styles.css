@@ -40,8 +40,11 @@ fc-daygrid-day-number {
 
 .calendar-card{
   background-color: #333 !important;
+  background-size: contain;
   padding: 1rem;
   border-radius: 10px;
+  margin-top: 50px;
+  margin-bottom: 40px;
 }
 
 @media screen and (max-width: 450px) {
@@ -56,6 +59,6 @@ fc-daygrid-day-number {
 
   .calendar-card{
     background-color: #333 !important;
-    padding: 2.15rem 1rem 14rem 1rem;
+    padding: 2.15rem 1rem 17rem 1rem;
   }
 }

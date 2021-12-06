@@ -47,7 +47,7 @@ const [login/* , { error } */] = useMutation(LOGIN_USER);
   };
 
   return (
-    <main className="flex-row justify-center" style={{ marginTop: '5rem' }}>
+    <main className="flex-row justify-center">
       <div className="col-md-5">
 
         <Card sx={{ minWidth: 275 }} style={{ backgroundColor: '#333' }}>
