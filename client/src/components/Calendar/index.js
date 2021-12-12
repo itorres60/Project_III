@@ -159,7 +159,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
         reservationAr.push(info.dateStr)
         confirmAlert({
           title: "Confirm Request",
-          message: `Would you like to request ${moment(reservationAr[0], "YYYY-MM-DD").format('MM-DD-YYYY')} through ${moment(reservationAr[1], "YYYY-MM-DD").format('MM-DD-YYYY')} for relief or CANCEL reservation?`,
+          message: `Would you like to request ${moment(reservationAr[0], "YYYY-MM-DD").format('MM-DD-YYYY')} through ${moment(reservationAr[1], "YYYY-MM-DD").format('MM-DD-YYYY')} for relief or CANCEL request?`,
           buttons: [
             {
               label: "YES",
