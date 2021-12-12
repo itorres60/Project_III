@@ -4,7 +4,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import "./calender_styles.css"
 import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import './react-confirm-alert.css'; // Import css
 import { QUERY_CALENDAR } from '../../utils/queries';
 import { REMOVE_RESERVATION, ACCEPT_RESERVATION, CREATE_RESERVATION, REMOVE_ACCEPTED_RESERVATION } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
