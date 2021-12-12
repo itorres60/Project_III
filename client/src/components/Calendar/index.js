@@ -8,9 +8,11 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { QUERY_CALENDAR } from '../../utils/queries';
 import { REMOVE_RESERVATION, ACCEPT_RESERVATION, CREATE_RESERVATION, REMOVE_ACCEPTED_RESERVATION } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
+import moment from 'moment';
 
 let reservationAr = [];
 let reservationTitle = '';
+
 
 const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
   const [removeReservation, { loading: reservationLoading, error: reservationError }] = useMutation(REMOVE_RESERVATION, { refetchQueries: [{ query: QUERY_CALENDAR, variables: { calendarId: calendarId } }] });
@@ -106,17 +108,17 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
         reservationAr.push(info.dateStr)
         confirmAlert({
           title: "Confirm Request",
-          message: `Would you like to request ${reservationAr[0]} through ${reservationAr[1]} for relief or CANCEL reservation?`,
+          message: `Would you like to request ${moment(reservationAr[0], "YYYY-MM-DD").format('MM-DD-YYYY')} through ${moment(reservationAr[1], "YYYY-MM-DD").format('MM-DD-YYYY')} for relief or CANCEL reservation?`,
           buttons: [
             {
               label: "Yes",
               onClick: () => {
-                const promptTwo = window.prompt(`You have requested ${reservationAr[0]} through ${reservationAr[1]} for relief!  Input a title for your reservation (optional) or presse CANCEL to cancel your request.`)
+                const promptTwo = window.prompt(`You have requested ${moment(reservationAr[0], "YYYY-MM-DD").format('MM-DD-YYYY')} through ${moment(reservationAr[1], "YYYY-MM-DD").format('MM-DD-YYYY')} for relief!  Input a title for your reservation (optional) or presse CANCEL to cancel your request.`)
                 //Array is sent to the server/console.log for verification
                 if (promptTwo) {
                   reservationTitle = promptTwo
                 } else if (promptTwo === '') {
-                  reservationTitle = `Cover ${userFirstName}`
+                  reservationTitle = `${userFirstName} cover`
                 } else {
                   window.alert("You have cancelled your request")
                   reservationAr = [];
@@ -149,7 +151,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
       } else {
         confirmAlert({
           title: '',
-          message: `You have selected ${info.dateStr} as your start date. Select an end date or press RESERVE to submit your request.`,
+          message: `You have selected ${moment(info.dateStr, "YYYY-MM-DD").format('MM-DD-YYYY')} as your start date. Select an end date or press RESERVE to submit your request.`,
           buttons: [
             {
               label: "OK",
@@ -160,13 +162,13 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
               onClick: () => {
                 //if the user confirms the request for the single day then the date is pushed to the array and the user is alerted.
                 reservationAr.push(info.dateStr);
-                const promptOne = window.prompt(`You have requested ${info.dateStr} for relief! Input a title for your reservation (optional) or press CANCEL to cancel your request.`);
+                const promptOne = window.prompt(`You have requested ${moment(info.dateStr, "YYYY-MM-DD").format('MM-DD-YYYY')} for relief! Input a title for your reservation (optional) or press CANCEL to cancel your request.`);
                 //At this point the array can be sent to the server/console.log
                 //Array is sent to the server/console.log for verification
                 if (promptOne) {
                   reservationTitle = promptOne
                 } else if (promptOne === '') {
-                  reservationTitle = `Cover ${userFirstName}`
+                  reservationTitle = `${userFirstName} cover`
                 } else {
                   window.alert("You have cancelled your request")
                   return;
