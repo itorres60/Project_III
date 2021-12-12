@@ -11,7 +11,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import moment from 'moment';
 
 let reservationAr = [];
-let reservationTitle = '';
+// let reservationTitle = '';
 
 
 const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
@@ -64,44 +64,92 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
   const handleDateClick = (arg) => {
     // if you are the owner of an accepted reservation
     if (userRole === "employee" && userId === arg.event._def.extendedProps.requestedUserId && arg.event._def.extendedProps.assignedUserId) {
-      if (window.confirm("Do you want to remove this ACCEPTED reservation?")) {
-        removeReservation({
-          variables: {
-            reservationId: arg.event._def.extendedProps.reservationId,
-            calendarId: arg.event._def.extendedProps.calendarId
+      confirmAlert({
+        title: '',
+        message: 'Do you want to remove this reservation?',
+        buttons: [
+          {
+            label: 'YES',
+            onClick: () => {
+              removeReservation({
+                variables: {
+                  reservationId: arg.event._def.extendedProps.reservationId,
+                  calendarId: arg.event._def.extendedProps.calendarId
+                }
+              })
+            }
+          },
+          {
+            label: 'NO'
           }
-        })
-      }
+        ]
+      })
     }
 
     // if you are the relief on a reservation
     if (arg.event._def.extendedProps.assignedUserId) {
       if (userId === arg.event._def.extendedProps.assignedUserId._id) {
-        if (window.confirm("Do you want to remove your acceptance from this reservation?")) {
-          removeAcceptReservation({
-            variables: {
-              reservationId: arg.event._def.extendedProps.reservationId
+        confirmAlert({
+          title: '',
+          message: 'Do you want to remove your acceptance from this reservation?',
+          buttons: [
+            {
+              label: 'YES',
+              onClick: () => {
+                removeAcceptReservation({
+                  variables: {
+                    reservationId: arg.event._def.extendedProps.reservationId
+                  }
+                })
+              }
+            },
+            {
+              label: 'NO'
             }
-          })
-        }
+          ]
+        })
       }
     } else if (userRole === 'reliever') {
-      if (window.confirm("Do you want to accept this reservation?")) {
-        acceptReservation({
-          variables: {
-            reservationId: arg.event._def.extendedProps.reservationId
+      confirmAlert({
+        title: '',
+        message: "Do you want to accept this reservation?",
+        buttons: [
+          {
+            label: 'YES',
+            onClick: () => {
+              acceptReservation({
+                variables: {
+                  reservationId: arg.event._def.extendedProps.reservationId
+                }
+              })
+            }
+          },
+          {
+            label: 'NO',
           }
-        })
-      }
+        ]
+      })
     } else if (userId === arg.event._def.extendedProps.requestedUserId || userRole === 'administrator') {
-      if (window.confirm("Do you want to remove this reservation?")) {
-        removeReservation({
-          variables: {
-            reservationId: arg.event._def.extendedProps.reservationId,
-            calendarId: arg.event._def.extendedProps.calendarId
+      confirmAlert({
+        title: '',
+        message: 'Do you want to remove this reservation?',
+        buttons: [
+          {
+            label: 'YES',
+            onClick: () => {
+              removeReservation({
+                variables: {
+                  reservationId: arg.event._def.extendedProps.reservationId,
+                  calendarId: arg.event._def.extendedProps.calendarId
+                }
+              })
+            }
+          },
+          {
+            label: 'NO',
           }
-        })
-      }
+        ]
+      })
     }
   }
 
@@ -116,26 +164,26 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
             {
               label: "Yes",
               onClick: () => {
-                const promptTwo = window.prompt(`You have requested ${moment(reservationAr[0], "YYYY-MM-DD").format('MM-DD-YYYY')} through ${moment(reservationAr[1], "YYYY-MM-DD").format('MM-DD-YYYY')} for relief!  Input a title for your reservation (optional) or presse CANCEL to cancel your request.`)
-                //Array is sent to the server/console.log for verification
-                if (promptTwo) {
-                  reservationTitle = promptTwo
-                } else if (promptTwo === '') {
-                  reservationTitle = `${userFirstName} cover`
-                } else {
-                  window.alert("You have cancelled your request")
-                  reservationAr = [];
-                  return;
-                }
+                // const promptTwo = window.prompt(`You have requested ${moment(reservationAr[0], "YYYY-MM-DD").format('MM-DD-YYYY')} through ${moment(reservationAr[1], "YYYY-MM-DD").format('MM-DD-YYYY')} for relief!  Input a title for your reservation (optional) or presse CANCEL to cancel your request.`)
+                // //Array is sent to the server/console.log for verification
+                // if (promptTwo) {
+                //   reservationTitle = promptTwo
+                // } else if (promptTwo === '') {
+                //   reservationTitle = `${userFirstName} cover`
+                // } else {
+                //   window.alert("You have cancelled your request")
+                //   reservationAr = [];
+                //   return;
+                // }
                 createReservation({
                   variables: {
                     start: reservationAr[0],
                     end: reservationAr[1],
-                    title: reservationTitle,
+                    title: `${userFirstName} cover`,
                     calendarId: calendarId
                   }
                 });
-                reservationTitle = '';
+                // reservationTitle = '';
                 reservationAr = []
                 setSelectText(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
                 return
@@ -143,11 +191,10 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
             },
             {
               label: "No",
-              onClick: () => {          
-                window.alert("Request cancelled!")
+              onClick: () => {
                 //clear reservationAr for next use
                 reservationAr = [];
-                setSelectText(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
+                setSelectText(<span>Request Cancelled!  <span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span></span>)
                 return;
               }
             }
@@ -168,28 +215,28 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
             {
               label: "RESERVE",
               onClick: () => {
-                //if the user confirms the request for the single day then the date is pushed to the array and the user is alerted.
+                // //if the user confirms the request for the single day then the date is pushed to the array and the user is alerted.
                 reservationAr.push(info.dateStr);
-                const promptOne = window.prompt(`You have requested ${moment(info.dateStr, "YYYY-MM-DD").format('MM-DD-YYYY')} for relief! Input a title for your reservation (optional) or press CANCEL to cancel your request.`);
-                //At this point the array can be sent to the server/console.log
-                //Array is sent to the server/console.log for verification
-                if (promptOne) {
-                  reservationTitle = promptOne
-                } else if (promptOne === '') {
-                  reservationTitle = `${userFirstName} cover`
-                } else {
-                  window.alert("You have cancelled your request")
-                  setSelectText(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
-                  return;
-                }
+                // const promptOne = window.prompt(`You have requested ${moment(info.dateStr, "YYYY-MM-DD").format('MM-DD-YYYY')} for relief! Input a title for your reservation (optional) or press CANCEL to cancel your request.`);
+                // //At this point the array can be sent to the server/console.log
+                // //Array is sent to the server/console.log for verification
+                // if (promptOne) {
+                //   reservationTitle = promptOne
+                // } else if (promptOne === '') {
+                //   reservationTitle = `${userFirstName} cover`
+                // } else {
+                //   window.alert("You have cancelled your request")
+                //   setSelectText(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
+                //   return;
+                // }
                 createReservation({
                   variables: {
                     start: reservationAr[0],
-                    title: reservationTitle,
+                    title: `${userFirstName} cover`,
                     calendarId: calendarId
                   }
                 });
-                reservationTitle = '';
+                // reservationTitle = '';
                 //after the data has been sent to the server/console.log the the reservationsAr array is cleared and the function ends.
                 reservationAr = [];
                 setSelectText(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
