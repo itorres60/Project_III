@@ -205,7 +205,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
 
   return (
     <>
-    <p>{selectText}</p>
+    <p className='select-text'>{selectText}</p>
     <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
