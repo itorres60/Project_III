@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
@@ -15,6 +15,9 @@ let reservationTitle = '';
 
 
 const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
+
+  const [selectText, setSelectText] = useState(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
+
   const [removeReservation, { loading: reservationLoading, error: reservationError }] = useMutation(REMOVE_RESERVATION, { refetchQueries: [{ query: QUERY_CALENDAR, variables: { calendarId: calendarId } }] });
   
   const [acceptReservation, { loading: reservationAcceptLoading, error: reservationAcceptError }] = useMutation(ACCEPT_RESERVATION, { refetchQueries: [{ query: QUERY_CALENDAR, variables: { calendarId: calendarId } }] });
@@ -134,6 +137,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
                 });
                 reservationTitle = '';
                 reservationAr = []
+                setSelectText(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
                 return
               }
             },
@@ -143,6 +147,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
                 window.alert("Request cancelled!")
                 //clear reservationAr for next use
                 reservationAr = [];
+                setSelectText(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
                 return;
               }
             }
@@ -155,7 +160,10 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
           buttons: [
             {
               label: "OK",
-              onClick: () => reservationAr.push(info.dateStr)
+              onClick: () => {
+                reservationAr.push(info.dateStr)
+                setSelectText(<span style={{color: 'red', fontWeight: 'bolder'}}>Select End Date</span>)
+              }
             },
             {
               label: "RESERVE",
@@ -171,6 +179,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
                   reservationTitle = `${userFirstName} cover`
                 } else {
                   window.alert("You have cancelled your request")
+                  setSelectText(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
                   return;
                 }
                 createReservation({
@@ -183,16 +192,20 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
                 reservationTitle = '';
                 //after the data has been sent to the server/console.log the the reservationsAr array is cleared and the function ends.
                 reservationAr = [];
+                setSelectText(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
                 return
               }
             }
           ]
-        })
+        }) 
       }
     }
   }
 
+
   return (
+    <>
+    <p>{selectText}</p>
     <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
@@ -201,6 +214,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
       eventClick={handleDateClick}
       dateClick={selectDate}
     />
+    </>
   )
 }
 
