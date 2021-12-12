@@ -3,6 +3,8 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import "./calender_styles.css"
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { QUERY_CALENDAR } from '../../utils/queries';
 import { REMOVE_RESERVATION, ACCEPT_RESERVATION, CREATE_RESERVATION, REMOVE_ACCEPTED_RESERVATION } from '../../utils/mutations';
 import { useQuery, useMutation } from '@apollo/client';
@@ -12,26 +14,26 @@ let reservationTitle = '';
 
 const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
   const [removeReservation, { loading: reservationLoading, error: reservationError }] = useMutation(REMOVE_RESERVATION, { refetchQueries: [{ query: QUERY_CALENDAR, variables: { calendarId: calendarId } }] });
-
+  
   const [acceptReservation, { loading: reservationAcceptLoading, error: reservationAcceptError }] = useMutation(ACCEPT_RESERVATION, { refetchQueries: [{ query: QUERY_CALENDAR, variables: { calendarId: calendarId } }] });
-
+  
   const [removeAcceptReservation, { loading: reservationRemoveAcceptLoading, error: reservationRemoveAcceptError }] = useMutation(REMOVE_ACCEPTED_RESERVATION, { refetchQueries: [{ query: QUERY_CALENDAR, variables: { calendarId: calendarId } }] });
-
+  
   const [createReservation, { loading: createReservationLoading, error: createReservationError }] = useMutation(CREATE_RESERVATION, { refetchQueries: [{ query: QUERY_CALENDAR, variables: { calendarId: calendarId } }] });
-
+  
   const { loading: calendarLoading, error: calendarError, data: calendarData } = useQuery(QUERY_CALENDAR, {
     variables: { calendarId },
   });
-
-  if (calendarLoading || reservationLoading || reservationAcceptLoading || createReservationLoading || reservationRemoveAcceptLoading) return 'Loading...';
+  
+  if (calendarLoading || reservationLoading || reservationAcceptLoading || createReservationLoading || reservationRemoveAcceptLoading) return "Loading...if I'm stuck swipe down to reload :D";
   if (calendarError) return `${calendarError.message}`;
   if (createReservationError) return `${createReservationError.message}`;
   if (reservationRemoveAcceptError) return `${reservationRemoveAcceptError.message}`;
   if (reservationError) return `${reservationError.message}`;
   if (reservationAcceptError) return `${reservationAcceptError.message}`;
-
+  
   let color;
-
+  
   const reservations = calendarData.calendar.reservations.map(reservation => {
     if (reservation.isAvailable) {
       // change this variable for reservations that are accepted
@@ -40,7 +42,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
       // changes this variable for reservations that are not accepted
       color = 'red'
     }
-
+    
     return {
       title: reservation.title,
       start: reservation.start,
@@ -52,7 +54,8 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
       assignedUserId: reservation.assignedUser
     }
   })
-
+  
+  
   const handleDateClick = (arg) => {
     // if you are the owner of an accepted reservation
     if (userRole === "employee" && userId === arg.event._def.extendedProps.requestedUserId && arg.event._def.extendedProps.assignedUserId) {
@@ -99,84 +102,90 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
 
   const selectDate = (info) => {
     if (userRole === 'employee') {
-      //The first thing this function does is check to see if there is a value in the reservationsAr array. If there IS NOT then the logic will skip over to line 96.
       if (reservationAr.length) {
-        // if a value DOES exists in the array it is implied as the startDate therefore this second date is going to be pushed as the second or endDate for the reservation.
         reservationAr.push(info.dateStr)
-        //After the second date has been pushed the user is to confirm the reservation dates or cancel the request.
-        const confirmReservation = window.confirm(`Would you like to request ${reservationAr[0]} through ${reservationAr[1]} for relief or CANCEL reservation?`)
-        //if the user cancels the reservation process then the user will be alerted and the array will be clear or set back to empty.
-        if (!confirmReservation) {
-          window.alert("Request cancelled!")
-          //clear reservationAr for next use
-          reservationAr = [];
-          return;
-        } else {
-          reservationTitle = confirmReservation;
-        }
-        //If the user confirms the reservation dates then the user will be alerted and the values should then be sent to the server.
-        const promptTwo = window.prompt(`You have requested ${reservationAr[0]} through ${reservationAr[1]} for relief!`)
-        //Array is sent to the server/console.log for verification
-        if (promptTwo) {
-          reservationTitle = promptTwo
-        } else if (promptTwo === '') {
-          reservationTitle = `Cover ${userFirstName}`
-        } else {
-          window.alert("You have cancelled your request")
-          return;
-        }
-        createReservation({
-          variables: {
-            start: reservationAr[0],
-            end: reservationAr[1],
-            title: reservationTitle,
-            calendarId: calendarId
-          }
-        });
-        reservationTitle = '';
-        reservationAr = []
-        return
-      }
-      //If the array is empty at the time that a date is clicked the the user will be asked if they'd like to select and end date.
-      const askEndDate = window.confirm(`You have selected ${info.dateStr} as your start date. Would you like to add an end date`)
-      //If the user confirms to request an endDate then the process continues on line 118
-
-      //If no end date is desired the user is asked if they would like to request selected date for relief or cancel reservation process.
-      if (!askEndDate) {
-        const askCancel = window.confirm("Would you like to request " + info.dateStr + " for relief or CANCEL reservation?")
-        //If the user cancle the reservation process then the user is alerted, no value is pushed and the function ends.
-        if (!askCancel) {
-          window.alert("You have cancelled your request")
-          return;
-        } else {
-          //if the user confirms the request for the single day then the date is pushed to the array and the user is alerted.
-          reservationAr.push(info.dateStr);
-          const promptOne = window.prompt("You have requested " + info.dateStr + " for relief! Input a title for your reservation:");
-          //At this point the array can be sent to the server/console.log
-          //Array is sent to the server/console.log for verification
-          if (promptOne) {
-            reservationTitle = promptOne
-          } else if (promptOne === '') {
-            reservationTitle = `Cover ${userFirstName}`
-          } else {
-            window.alert("You have cancelled your request")
-            return;
-          }
-          createReservation({
-            variables: {
-              start: reservationAr[0],
-              title: reservationTitle,
-              calendarId: calendarId
+        confirmAlert({
+          title: "Confirm Request",
+          message: `Would you like to request ${reservationAr[0]} through ${reservationAr[1]} for relief or CANCEL reservation?`,
+          buttons: [
+            {
+              label: "Yes",
+              onClick: () => {
+                const promptTwo = window.prompt(`You have requested ${reservationAr[0]} through ${reservationAr[1]} for relief!  Input a title for your reservation (optional) or presse CANCEL to cancel your request.`)
+                //Array is sent to the server/console.log for verification
+                if (promptTwo) {
+                  reservationTitle = promptTwo
+                } else if (promptTwo === '') {
+                  reservationTitle = `Cover ${userFirstName}`
+                } else {
+                  window.alert("You have cancelled your request")
+                  reservationAr = [];
+                  return;
+                }
+                createReservation({
+                  variables: {
+                    start: reservationAr[0],
+                    end: reservationAr[1],
+                    title: reservationTitle,
+                    calendarId: calendarId
+                  }
+                });
+                reservationTitle = '';
+                reservationAr = []
+                return
+              }
+            },
+            {
+              label: "No",
+              onClick: () => {          
+                window.alert("Request cancelled!")
+                //clear reservationAr for next use
+                reservationAr = [];
+                return;
+              }
             }
-          });
-          reservationTitle = '';
-          //after the data has been sent to the server/console.log the the reservationsAr array is cleared and the function ends.
-          reservationAr = [];
-          return
-        }
-        //if the user confirms to add an end date then the first date is pushed to the reservationAr and the and the user is then free to select a date in the main UI.
-      } else if (askEndDate) {
-        reservationAr.push(info.dateStr);
+          ]
+        })
+      } else {
+        confirmAlert({
+          title: '',
+          message: `You have selected ${info.dateStr} as your start date. Select an end date or press RESERVE to submit your request.`,
+          buttons: [
+            {
+              label: "OK",
+              onClick: () => reservationAr.push(info.dateStr)
+            },
+            {
+              label: "RESERVE",
+              onClick: () => {
+                //if the user confirms the request for the single day then the date is pushed to the array and the user is alerted.
+                reservationAr.push(info.dateStr);
+                const promptOne = window.prompt(`You have requested ${info.dateStr} for relief! Input a title for your reservation (optional) or press CANCEL to cancel your request.`);
+                //At this point the array can be sent to the server/console.log
+                //Array is sent to the server/console.log for verification
+                if (promptOne) {
+                  reservationTitle = promptOne
+                } else if (promptOne === '') {
+                  reservationTitle = `Cover ${userFirstName}`
+                } else {
+                  window.alert("You have cancelled your request")
+                  return;
+                }
+                createReservation({
+                  variables: {
+                    start: reservationAr[0],
+                    title: reservationTitle,
+                    calendarId: calendarId
+                  }
+                });
+                reservationTitle = '';
+                //after the data has been sent to the server/console.log the the reservationsAr array is cleared and the function ends.
+                reservationAr = [];
+                return
+              }
+            }
+          ]
+        })
       }
     }
   }
