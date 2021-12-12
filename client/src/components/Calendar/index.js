@@ -132,7 +132,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
     } else if (userId === arg.event._def.extendedProps.requestedUserId || userRole === 'administrator') {
       confirmAlert({
         title: '',
-        message: 'Do you want to remove this reservation?',
+        message: 'Do you want to remove this request?',
         buttons: [
           {
             label: 'YES',
@@ -203,7 +203,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
       } else {
         confirmAlert({
           title: '',
-          message: `You have selected ${moment(info.dateStr, "YYYY-MM-DD").format('MM-DD-YYYY')} as your start date. Select an end date or press RESERVE to submit your request.`,
+          message: `You have selected ${moment(info.dateStr, "YYYY-MM-DD").format('MM-DD-YYYY')} as your start date. Press OK to select an end date or press RESERVE to submit your request.`,
           buttons: [
             {
               label: "OK",
