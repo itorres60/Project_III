@@ -162,7 +162,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
           message: `Would you like to request ${moment(reservationAr[0], "YYYY-MM-DD").format('MM-DD-YYYY')} through ${moment(reservationAr[1], "YYYY-MM-DD").format('MM-DD-YYYY')} for relief or CANCEL reservation?`,
           buttons: [
             {
-              label: "Yes",
+              label: "YES",
               onClick: () => {
                 // const promptTwo = window.prompt(`You have requested ${moment(reservationAr[0], "YYYY-MM-DD").format('MM-DD-YYYY')} through ${moment(reservationAr[1], "YYYY-MM-DD").format('MM-DD-YYYY')} for relief!  Input a title for your reservation (optional) or presse CANCEL to cancel your request.`)
                 // //Array is sent to the server/console.log for verification
@@ -190,7 +190,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
               }
             },
             {
-              label: "No",
+              label: "CANCEL",
               onClick: () => {
                 //clear reservationAr for next use
                 reservationAr = [];
