@@ -1,15 +1,11 @@
 # Relief and Rotation
 
-## About
-
-Relief and rotations is a Web App utility for managing employee scheduling.  The app was built using the MERN stack and deployed via Heroku and also on a dedicated server at www.reliefandrotations.com  The Idea revolves around simplicity.  Three user catagories interact with each other in order to produce and maanipulate data on a central, companywide calendar.  The calendar displays requests for time off or "relief" in a pending and approved state.  The three categories of users are: Administrator, relief, and employee.  Our app makes use of roles in order toa sign functioanlity to one that the other would not get.  More features are yet to come!
-
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/itorres60/Project_III) ![GitHub Repo stars](https://img.shields.io/github/stars/itorres60/Project_III?style=social) ![GitHub package.json version](https://img.shields.io/github/package-json/v/itorres60/Project_III) [![License](https://img.shields.io/badge/license-Unlicensed-blue)](./LICENSE)
 ## Description
 
 Live Website: https://www.reliefandrotations.com
 
-A scheduling application that assigns a user a role of either admin, employee, or reliever. Based on the role the user can either create a calendar and add users to it, request a span of dates for relief, or accept relief requests.
+Relief and rotations is a Web App utility for managing employee scheduling.  The app was built using the MERN stack and deployed via Heroku and also on a dedicated server at www.reliefandrotations.com.  The Idea revolves around simplicity.  Three user catagories interact with each other in order to produce and maanipulate data on a central, companywide calendar.  The calendar displays requests for time off or "relief" in a pending and approved state.  The three categories of users are: Administrator, relief, and employee.  Our app makes use of roles in order toa sign functioanlity to one that the other would not get.  More features are yet to come!
 
 ## Table of Contents:
 * [Installation](#installation)
