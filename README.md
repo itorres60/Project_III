@@ -12,7 +12,6 @@ Relief and rotations is a Web App utility for managing employee scheduling.  The
 * [Usage](#usage)
 * [Screenshot](#screenshot)
 * [Contributors](#contributors)
-* [Credits](#credits)
 
 
 ## Installation 
@@ -42,5 +41,3 @@ This project should be used as a tool to streamline a companies relief schedulin
 - [Bailey Poe](https://github.com/bpoe1222)
 - [J Isaias Torres](https://github.com/itorres60)
 - [Zach Yarbrough](https://github.com/zachyarbrough)
-
-## Credits
