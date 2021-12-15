@@ -5,6 +5,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import '../alert.css'; // Import css
 import Auth from '../utils/auth';
 
 
@@ -35,15 +37,27 @@ const [login/* , { error } */] = useMutation(LOGIN_USER);
       });
 
       Auth.login(data.login.token);
-    } catch (e) {
-      window.alert(`Invalid login information.  Please try again or contact administrator for access.`)
-    }
 
-    // clear form values
-    setFormState({
-      email: '',
-      password: '',
-    });
+      // clear form values
+      setFormState({
+        email: '',
+        password: '',
+      });
+
+    } catch (e) {
+      confirmAlert({
+        title: 'Invalid Login',
+        message: 'Invalid login information.  Please try again or contact administrator for access.',
+        buttons: [{
+          label: 'Ok'
+        }]
+      })
+
+      // clear form values
+      setFormState({
+        password: '',
+      });
+    }
   };
 
   return (
@@ -61,7 +75,6 @@ const [login/* , { error } */] = useMutation(LOGIN_USER);
                 name="email"
                 type="email"
                 value={formState.email}
-                placeholder="example@mail.com"
                 style={{ marginLeft: '2rem' }}
                 onChange={handleChange}>
               </input>
@@ -72,7 +85,6 @@ const [login/* , { error } */] = useMutation(LOGIN_USER);
                 name="password"
                 type="password"
                 value={formState.password}
-                placeholder="••••••••••"
                 onChange={handleChange}>
               </input>
               <CardActions className="flex-row justify-center mt-4">

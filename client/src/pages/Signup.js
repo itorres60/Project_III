@@ -68,7 +68,7 @@ const Signup = () => {
                 placeholder="Your first name"
                 name="firstName"
                 type="firstName"
-                for="firstName"
+                htmlFor="firstName"
                 value={formState.firstName}
                 onChange={handleChange}
                 className='mb-4'
@@ -80,7 +80,7 @@ const Signup = () => {
                 placeholder="Your last name"
                 name="lastName"
                 type="lastName"
-                for="lastName"
+                htmlFor="lastName"
                 value={formState.lastName}
                 onChange={handleChange}
                 className='mb-4'
@@ -92,7 +92,7 @@ const Signup = () => {
                 placeholder="Your email"
                 name="email"
                 type="email"
-                for="email"
+                htmlFor="email"
                 value={formState.email}
                 onChange={handleChange}
                 className='mb-4'
@@ -104,7 +104,7 @@ const Signup = () => {
                 placeholder="••••••••••"
                 name="password"
                 type="password"
-                for="password"
+                htmlFor="password"
                 value={formState.password}
                 onChange={handleChange}
               />
@@ -139,9 +139,7 @@ const Signup = () => {
             <div className="flex-row justify-center mb-4">
               <p style={{ color: '#fff' }}>Already have an account?
                 <br />
-                <div className='flex-row justify-center'>
-                  <a style={{ color: '#29b6f6' }} href="/login">Login</a>
-                </div>
+                <a className='flex-row justify-center' style={{ color: '#29b6f6' }} href="/login">Login</a>
               </p>
             </div>
             {error && <div style={{ color: '#fff' }}>Signup failed</div>}

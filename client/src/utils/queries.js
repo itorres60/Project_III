@@ -35,6 +35,8 @@ export const QUERY_ME = gql`
         email
         calendars {
           _id
+          companyName
+          users
         }
         role
       }
