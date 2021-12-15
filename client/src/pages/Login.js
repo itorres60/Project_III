@@ -64,7 +64,7 @@ const [login/* , { error } */] = useMutation(LOGIN_USER);
     <main className="flex-row justify-center">
       <div className="col-md-5">
 
-        <Card sx={{ minWidth: 275 }} style={{ backgroundColor: '#004b8d', marginTop: '-90px', paddingTop: '30px', borderRadius: '30px' }}>
+        <Card sx={{ minWidth: 350 }} style={{ backgroundColor: '#004b8d', marginTop: '-90px', paddingTop: '30px', borderRadius: '30px' }}>
           <div className="flex-row justify-center mb-4">
             <h2 style={{ color: '#fff' }}>Welcome Back!</h2>
           </div>
@@ -75,17 +75,17 @@ const [login/* , { error } */] = useMutation(LOGIN_USER);
                 name="email"
                 type="email"
                 value={formState.email}
-                style={{ marginLeft: '2rem' }}
-                onChange={handleChange}>
+                onChange={handleChange}
+                className="form-input">
               </input>
-              <br />
               <br />
               <label id="password" style={{ color: '#fff' }}>Password: </label>
               <input
                 name="password"
                 type="password"
                 value={formState.password}
-                onChange={handleChange}>
+                onChange={handleChange}
+                className="form-input">
               </input>
               <CardActions className="flex-row justify-center mt-4">
                 <Button type="submit" size="large" variant="contained" style={{ backgroundColor: '#292929' }}>Login</Button>
