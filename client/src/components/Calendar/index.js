@@ -45,7 +45,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
       color = '#2c664b';
     } else {
       // changes this variable for reservations that are not accepted
-      color = '#1d3757'
+      color = '#d39090'
     }
     
     return {
