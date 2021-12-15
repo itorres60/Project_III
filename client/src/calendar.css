@@ -39,7 +39,7 @@ fc-daygrid-day-number {
 }
 
 .calendar-card{
-  background-color: #333 !important;
+  background-color: #004b8d !important;
   background-size: contain;
   padding: 1rem;
   border-radius: 10px;
@@ -53,13 +53,17 @@ fc-daygrid-day-number {
     overflow: hidden !important;
   }
 
-  .fc-toolbar-title{
+  h2.fc-toolbar-title{
     margin-top: -35px !important;
+    font-size: 35px !important;
+
   }
 
   .calendar-card{
-    background-color: #333 !important;
+    background-color: #004b8d !important;
     padding: 2.15rem 1rem 17rem 1rem;
+    margin-left: -20px;
+    margin-right: -20px;
   }
 
   .select-text {

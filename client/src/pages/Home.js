@@ -8,7 +8,6 @@ const Home = () => {
 
   const { loading, error, data } = useQuery(QUERY_ME);
 
-
   if (loading) return 'Loading...';
   if (error) return `${error.message}`;
 
@@ -16,14 +15,14 @@ const Home = () => {
     <main className="flex-column justify-center">
     
       <div id='modalTarget' className='flex-row justify-space-between align-center'>
-        <strong style={{color:'#fff', marginTop: '-20px'}} >
+        <strong style={{color:'#fff'}} >
           {data.me.firstName} {data.me.lastName}
-          <span style={{fontSize:'1.25rem', color:'#999'}} className='flex-row align-center role-mobile'>
-            {data.me.role.charAt(0).toUpperCase()}{data.me.role.slice(1)}
-          </span>
-        </strong>
-
+        </strong> 
+        <span>{data.me.calendars[0].companyName}</span>  
       </div>
+      <div style={{fontSize:'1.25rem', color:'#999', marginBottom: '-30px'}} className='flex-row align-center role-mobile'>
+            {data.me.role.charAt(0).toUpperCase()}{data.me.role.slice(1)}
+      </div>    
       
       <div className='calendar-card'>
         <Calendar 

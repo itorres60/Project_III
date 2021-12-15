@@ -12,17 +12,16 @@ const Header = () => {
   const [userFormState, setUserFormState] = useState({
     email: ''
   });
-
-  const { loading, error, data } = useQuery(QUERY_ME);
+  
+  const { data } = useQuery(QUERY_ME);
 
   const [addUser, { loading: userLoading, error: userError }] = useMutation(ADD_USER);
 
   const [removeUser, { loading: rUserLoading, error: rUserError }] = useMutation(REMOVE_USER);
 
-  if (loading || userLoading || rUserLoading) return 'Loading...';
+  if (userLoading || rUserLoading) return 'Loading...';
   if (userError) return `${userError.message}`;
   if (rUserError) return `${rUserError.message}`;
-  if (error) return `${error.message}`;
 
   const logout = event => {
     event.preventDefault();
@@ -68,8 +67,7 @@ const Header = () => {
   const handleRemoveUser = (event) => {
     event.preventDefault();
     const user = event.target.parentNode.parentNode.children[0].innerHTML
-    console.log(user)
-
+    
     confirmAlert({
       title: '',
       message: `Remove ${user} from ${data.me.calendars[0].companyName} calendar?`,
@@ -98,18 +96,21 @@ const Header = () => {
     setUserFormState('');
   }
 
-  const usersAr = data.me.calendars[0].users;
+  let usersAr;
+  if(data) {
+    usersAr = data.me.calendars[0].users;
+  }
 
   return (
-    <header className="bg-tertiary mb-4 py-2 flex-row align-center">
+    <header className="bg-tertiary py-2 flex-row align-center">
       <div className="container flex-row justify-space-between-lg justify-center align-center">
         <Link to="/">
           <h1>Relief & Rotations</h1>
         </Link>
 
-        <nav className="flex-row text-center nav-bar">
+        <nav className="flex-row  text-center nav-bar">
 
-        {data.me.role === 'administrator' &&
+        {data && data.me.role === 'administrator' &&
           <CreateCalendarModal 
             className='hide-mobile' 
             handleUserFormSubmit={handleUserFormSubmit} 

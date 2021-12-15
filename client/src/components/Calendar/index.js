@@ -16,7 +16,7 @@ let reservationAr = [];
 
 const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
 
-  const [selectText, setSelectText] = useState(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
+  const [selectText, setSelectText] = useState(<span style={{color: '#45b167', fontWeight: 'bolder', fontSize: 'larger'}}>Select Start Date</span>)
 
   const [removeReservation, { loading: reservationLoading, error: reservationError }] = useMutation(REMOVE_RESERVATION, { refetchQueries: [{ query: QUERY_CALENDAR, variables: { calendarId: calendarId } }] });
   
@@ -30,7 +30,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
     variables: { calendarId },
   });
   
-  if (calendarLoading || reservationLoading || reservationAcceptLoading || createReservationLoading || reservationRemoveAcceptLoading) return "Loading...if I'm stuck swipe down to reload :D";
+  if (calendarLoading || reservationLoading || reservationAcceptLoading || createReservationLoading || reservationRemoveAcceptLoading) return "Loading...if I'm stuck swipe down to reload.";
   if (calendarError) return `${calendarError.message}`;
   if (createReservationError) return `${createReservationError.message}`;
   if (reservationRemoveAcceptError) return `${reservationRemoveAcceptError.message}`;
@@ -42,10 +42,10 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
   const reservations = calendarData.calendar.reservations.map(reservation => {
     if (reservation.isAvailable) {
       // change this variable for reservations that are accepted
-      color = '#9C27B0';
+      color = '#2c664b';
     } else {
       // changes this variable for reservations that are not accepted
-      color = 'red'
+      color = '#1d3757'
     }
     
     return {
@@ -209,7 +209,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
               label: "OK",
               onClick: () => {
                 reservationAr.push(info.dateStr)
-                setSelectText(<span style={{color: 'red', fontWeight: 'bolder'}}>Select End Date</span>)
+                setSelectText(<span style={{color: '#e05d05', fontWeight: 'bolder', fontSize: 'larger'}}>Select End Date</span>)
               }
             },
             {
@@ -239,7 +239,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
                 // reservationTitle = '';
                 //after the data has been sent to the server/console.log the the reservationsAr array is cleared and the function ends.
                 reservationAr = [];
-                setSelectText(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
+                setSelectText(<span style={{color: '#45b167', fontWeight: 'bolder', fontSize: 'larger'}}>Select Start Date</span>)
                 return
               }
             }
@@ -252,7 +252,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
 
   return (
     <>
-    <p className='select-text'>{selectText}</p>
+    <p className='select-text text-center'>{selectText}</p>
     <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"

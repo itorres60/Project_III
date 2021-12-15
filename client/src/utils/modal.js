@@ -29,7 +29,7 @@ export default function CreateCalendarModal({ handleUserFormSubmit, handleUserCh
 
   return (
     <div className='hide-mobile'>
-      <Button onClick={handleOpen} type="submit" size="small" variant="contained" style={{ backgroundColor: '#9C27B0' }} >Users</Button>
+      <Button onClick={handleOpen} type="submit" size="small" variant="contained" style={{ backgroundColor: '#d16d2c' }} >Users</Button>
       <Modal
           open={open}
           onClose={handleClose}
