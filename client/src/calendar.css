@@ -1,5 +1,5 @@
 ::-webkit-scrollbar-track {
-  background-color: #fff;
+  background-color: black;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -7,16 +7,32 @@
   border-radius: 15px;
 }
 
+
 .fc-scroller {
-  color: #fff;
+  color: black;
 }
 
-fc-daygrid-day-number {
-  color: #fff;
+thead {
+  background-color: #b0d6ff;
+}
+
+.fc-daygrid-day-number {
+  color: black !important;
+}
+
+.fc-col-header-cell-cushion {
+  color: black;
+}
+
+.fc .fc-scrollgrid {
+  border-collapse: collapse;
 }
 
 .fc .fc-scrollgrid-liquid {
   height: 100%;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: white;
 }
 
 .fc-toolbar-title{
@@ -46,6 +62,8 @@ fc-daygrid-day-number {
   margin-top: 50px;
   margin-bottom: 40px;
 }
+
+
 
 @media screen and (max-width: 450px) {
   .fc .fc-scrollgrid-liquid {
