@@ -57,7 +57,7 @@ const Initial = () => {
           placeholder="Your company's name"
           name="companyName"
           type="companyName"
-          for="companyName"
+          htmlFor="companyName"
           value={formState.companyName}
           onChange={handleChange}
           className='mb-4 form-input' />

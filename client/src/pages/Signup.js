@@ -57,9 +57,9 @@ const Signup = () => {
   return (
     <main className="flex-row justify-center mb-4">
       <div className="col-12 col-md-6">
-        <Card sx={{ minWidth: 275 }} style={{ backgroundColor: '#333' }} className="flex-row justify-center">
+        <Card sx={{ minWidth: 275 }} style={{ backgroundColor: '#004b8d', borderRadius:'30px'}} className="flex-row justify-center">
           <CardContent>
-            <h2 className="flex-row justify-center mt-0" style={{ color: '#fff' }}>Sign Up</h2>
+            <h2 className="flex-row justify-center mt-0" style={{ color: '#fff', marginBottom:'40px', marginTop:'20px' }}>Sign Up</h2>
             <form onSubmit={handleFormSubmit} className="justify-center" style={{ color: '#fff' }}>
 
               <label id="firstName">First Name: </label>
@@ -71,7 +71,7 @@ const Signup = () => {
                 htmlFor="firstName"
                 value={formState.firstName}
                 onChange={handleChange}
-                className='mb-4'
+                className='form-input'
               />
               <br />
               <label id="lastName">Last Name: </label>
@@ -83,7 +83,7 @@ const Signup = () => {
                 htmlFor="lastName"
                 value={formState.lastName}
                 onChange={handleChange}
-                className='mb-4'
+                className='form-input'
               />
               <br />
               <label id="email">Email: </label>
@@ -95,18 +95,19 @@ const Signup = () => {
                 htmlFor="email"
                 value={formState.email}
                 onChange={handleChange}
-                className='mb-4'
+                className='form-input'
               />
               <br />
               <label id="password">Password: </label>
               <br />
               <input
-                placeholder="••••••••••"
+                placeholder=""
                 name="password"
                 type="password"
                 htmlFor="password"
                 value={formState.password}
                 onChange={handleChange}
+                className='form-input'
               />
               <br />
               <br />
@@ -121,17 +122,17 @@ const Signup = () => {
                     onChange={handleChange}
                   >
                     <FormControlLabel value="employee" control={<Radio color="secondary"/>} label="Employee" />
-                    <h6 style={{fontSize:'0.85rem', marginLeft: '2rem', color:'#9C27B0'}}>- Creates Reservations</h6>
+                    <h6 style={{fontSize:'0.85rem', marginLeft: '2rem', color:'#d16d2c'}}>- Creates Reservations</h6>
                     <FormControlLabel value="reliever" control={<Radio color="secondary" />} label="Reliever" />
-                    <h6 style={{fontSize:'0.85rem', marginLeft: '2rem', color:'#9C27B0'}}>- Accepts Reservations</h6>
+                    <h6 style={{fontSize:'0.85rem', marginLeft: '2rem', color:'#d16d2c'}}>- Accepts Reservations</h6>
                     <FormControlLabel value="administrator" control={<Radio color="secondary" />} label="Administrator" />
-                    <h6 style={{fontSize:'0.85rem', marginLeft: '2rem', color:'#9C27B0'}}>- Controls Calendar(s)</h6>
+                    <h6 style={{fontSize:'0.85rem', marginLeft: '2rem', color:'#d16d2c'}}>- Controls Calendar(s)</h6>
                   </RadioGroup>
                 </FormControl>
               </div>
               <div className="flex-row justify-center mb-4">
                 <CardActions>
-                  <Button type="submit" size="large" variant="contained" style={{ backgroundColor: '#9C27B0' }} className='flex-row justify-center'>Submit</Button>
+                  <Button type="submit" size="large" variant="contained" style={{ backgroundColor: '#d16d2c' }} className='flex-row justify-center'>Submit</Button>
                 </CardActions>
               </div>
             </form>
