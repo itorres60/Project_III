@@ -102,15 +102,14 @@ const Home = () => {
   }
 
   return (
-    <main className="flex-column justify-center">
-    
+    <>
       <div id='modalTarget' className='flex-row justify-space-between align-center'>
         <strong style={{color:'#fff'}} >
           {data.me.firstName} {data.me.lastName}
         </strong> 
         <span>{data.me.calendars[0].companyName}</span>  
       </div>
-      <div style={{fontSize:'1.25rem', color:'#999', marginBottom: '-30px'}} className='flex-row justify-space-between role-mobile'>
+      <div className='flex-row justify-space-between text-subtle'>
             {data.me.role.charAt(0).toUpperCase()}{data.me.role.slice(1)}
             {data && data.me.role === 'administrator' &&
             <CreateCalendarModal 
@@ -132,7 +131,7 @@ const Home = () => {
           userFirstName={data.me.firstName}>
         </Calendar>
       </div>
-    </main>
+  </>
 
   );
 };

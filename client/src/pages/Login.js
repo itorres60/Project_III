@@ -63,11 +63,8 @@ const [login/* , { error } */] = useMutation(LOGIN_USER);
   return (
     <main className="flex-row justify-center">
       <div className="col-md-5">
-
-        <Card sx={{ minWidth: 350 }} style={{ backgroundColor: '#004b8d', marginTop: '-90px', paddingTop: '30px', borderRadius: '30px' }}>
-          <div className="flex-row justify-center mb-4">
-            <h2 style={{ color: '#fff' }}>Welcome Back!</h2>
-          </div>
+        <Card sx={{ minWidth: 350 }} style={{ backgroundColor: '#004b8d', paddingTop: '30px', borderRadius: '30px' }}>
+            <h2 className='text-light text-center'>Welcome Back!</h2>
           <CardContent className="flex-row justify-center mb-4">
             <form onSubmit={handleFormSubmit}>
               <label id="email" style={{ color: '#fff' }}>Email: </label>

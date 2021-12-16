@@ -42,7 +42,7 @@ function App() {
       <Router>
         <div className="flex-column justify-space-between min-100-vh">
           <Header />
-          <div className="container">
+          <div className="container-body">
             <Switch>
               <Route exact path="/calendar" component={Home} />
               <Route exact path="/login" component={Login} />

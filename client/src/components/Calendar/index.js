@@ -164,17 +164,6 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
             {
               label: "YES",
               onClick: () => {
-                // const promptTwo = window.prompt(`You have requested ${moment(reservationAr[0], "YYYY-MM-DD").format('MM-DD-YYYY')} through ${moment(reservationAr[1], "YYYY-MM-DD").format('MM-DD-YYYY')} for relief!  Input a title for your reservation (optional) or presse CANCEL to cancel your request.`)
-                // //Array is sent to the server/console.log for verification
-                // if (promptTwo) {
-                //   reservationTitle = promptTwo
-                // } else if (promptTwo === '') {
-                //   reservationTitle = `${userFirstName} cover`
-                // } else {
-                //   window.alert("You have cancelled your request")
-                //   reservationAr = [];
-                //   return;
-                // }
                 createReservation({
                   variables: {
                     start: reservationAr[0],
@@ -217,18 +206,6 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
               onClick: () => {
                 // //if the user confirms the request for the single day then the date is pushed to the array and the user is alerted.
                 reservationAr.push(info.dateStr);
-                // const promptOne = window.prompt(`You have requested ${moment(info.dateStr, "YYYY-MM-DD").format('MM-DD-YYYY')} for relief! Input a title for your reservation (optional) or press CANCEL to cancel your request.`);
-                // //At this point the array can be sent to the server/console.log
-                // //Array is sent to the server/console.log for verification
-                // if (promptOne) {
-                //   reservationTitle = promptOne
-                // } else if (promptOne === '') {
-                //   reservationTitle = `${userFirstName} cover`
-                // } else {
-                //   window.alert("You have cancelled your request")
-                //   setSelectText(<span style={{color: 'green', fontWeight: 'bolder'}}>Select Start Date</span>)
-                //   return;
-                // }
                 createReservation({
                   variables: {
                     start: reservationAr[0],
@@ -236,7 +213,6 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
                     calendarId: calendarId
                   }
                 });
-                // reservationTitle = '';
                 //after the data has been sent to the server/console.log the the reservationsAr array is cleared and the function ends.
                 reservationAr = [];
                 setSelectText(<span style={{color: '#45b167', fontWeight: 'bolder', fontSize: 'larger'}}>Select Start Date</span>)
@@ -252,7 +228,7 @@ const Calendar = ({ calendarId, userId, userRole, userFirstName }) => {
 
   return (
     <>
-    <p className='select-text text-center'>{selectText}</p>
+    {userRole === 'employee' && <p className='select-text text-center'>{selectText}</p>}
     <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"

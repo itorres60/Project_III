@@ -7,6 +7,20 @@
   border-radius: 15px;
 }
 
+.calendar-card{
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+  background-color: #004b8d;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.fc {
+  flex-grow: 1;
+}
+
 
 .fc-scroller {
   color: black;
@@ -17,7 +31,7 @@ thead {
 }
 
 .fc-daygrid-day-number {
-  color: black !important;
+  color: black;
 }
 
 .fc-col-header-cell-cushion {
@@ -29,8 +43,6 @@ thead {
 }
 
 .fc .fc-scrollgrid-liquid {
-  height: 100%;
-  border: 2px solid black;
   border-radius: 5px;
   background-color: white;
 }
@@ -51,41 +63,5 @@ thead {
 
 .fc-button-primary:hover {
   background-color: #555 !important;
-  
 }
 
-.calendar-card{
-  background-color: #004b8d !important;
-  background-size: contain;
-  padding: 1rem;
-  border-radius: 10px;
-  margin-top: 50px;
-  margin-bottom: 40px;
-}
-
-
-
-@media screen and (max-width: 450px) {
-  .fc .fc-scrollgrid-liquid {
-    height: 200%;
-    overflow: hidden !important;
-  }
-
-  h2.fc-toolbar-title{
-    margin-top: -35px !important;
-    font-size: 35px !important;
-
-  }
-
-  .calendar-card{
-    background-color: #004b8d !important;
-    padding: 2.15rem 1rem 17rem 1rem;
-    margin-left: -20px;
-    margin-right: -20px;
-  }
-
-  .select-text {
-    margin-top: -20px;
-    margin-bottom: 35px;
-  }
-}

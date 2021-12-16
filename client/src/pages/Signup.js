@@ -55,7 +55,7 @@ const Signup = () => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
+    <main className="flex-row justify-center mt-4 mb-4">
       <div className="col-12 col-md-6">
         <Card sx={{ minWidth: 275 }} style={{ backgroundColor: '#004b8d', borderRadius:'30px'}} className="flex-row justify-center">
           <CardContent>

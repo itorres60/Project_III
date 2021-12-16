@@ -4,9 +4,10 @@
   --tertiary: #292929;
   --quatrinary: #cadbda;
   --accent-gold: #d16d2c;
-  --light: #e1f5f4;
+  --light: #fff;
   --dark: #fff;
   --error: rgb(3, 3, 3);
+  --subtle: #999;
   --border-radius: 0.3rem;
   --spacing-one: calc(1rem * 0.25);
   --spacing-two: calc(1rem * 0.5);
@@ -33,6 +34,18 @@ body {
   font-size: 20px;
   color: var(--dark);
   background-color: var(--tertiary);
+}
+
+header {
+  height: 11vhh;;
+}
+
+main{
+  margin: auto;
+}
+
+footer {
+  height: 4vh;
 }
 
 h1,
@@ -240,13 +253,22 @@ nav a:hover {
 .container {
   width: 85%;
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
+}
+
+.container-body{
+  display: flex;
+  flex-flow: column;
+  width: 95%;
+  flex-grow: 1;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .container-fluid {
   width: 92%;
 }
+
 
 /* DISPLAY */
 .display-none {
@@ -783,6 +805,9 @@ nav a:hover {
   color: var(--error);
 }
 
+.text-subtle {
+  color: var(--subtle);
+}
 /* BACKGROUND UTILS */
 .bg-primary {
   background-color: var(--primary);
@@ -1270,11 +1295,13 @@ nav a:hover {
   h6 {
     font-size: 2rem;
   }
-
 }
 
-@media screen and (max-width: 450px) {
-  .role-mobile {
-    font-size: 0.95rem !important;
+
+@media screen and (max-width: 400px) {
+  header h1 {
+    font-size: x-large;
+    text-align: center;
+    margin: auto;
   }
 }
